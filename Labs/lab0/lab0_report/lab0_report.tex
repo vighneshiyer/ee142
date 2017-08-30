@@ -24,11 +24,36 @@
 \maketitle
 
 \section{DC Simulation}
-\subsection{$I_{ds}$ vs $V_{gs}$}
+I setup a DC simulation to characterize the Predictive Transistor Model (PTM) BSIM4 MOSFET device. It's nominal supply is $V_{DD} = 0.9V$ and we sweep its $V_{DS}$ and $V_{GS}$ and record the drain current $I_{DS}$ reported by the model.
 
-\subsection{$I_{ds}$ vs $V_{ds}$}
+\subsection{$I_{ds}$ vs $V_{gs}$ and $I_{ds}$ vs $V_{ds}$}
+\begin{figure}[H]
+	\minipage{0.50\textwidth}
+	\includegraphics[width=\linewidth]{images/short_channel_vgs_vs_ids.png}
+	\endminipage\hfill
+	\minipage{0.50\textwidth}
+	\includegraphics[width=\linewidth]{images/short_channel_vds_vs_ids.png}
+	\endminipage
+\end{figure}
 
-\subsection{Short-Channel vs. Long-Channel MOSFETs}
+\subsection{Long-Channel vs. Short-Channel MOSFETs}
+I used the built-in/default Level 3 MOSFET model in ADS to represent a typical long-channel MOSFET model. Its I-V curves are plotted below.
+\begin{figure}[H]
+	\minipage{0.50\textwidth}
+	\includegraphics[width=\linewidth]{images/long_channel_vgs_vs_ids.png}
+	\endminipage\hfill
+	\minipage{0.50\textwidth}
+	\includegraphics[width=\linewidth]{images/long_channel_vds_vs_ids.png}
+	\endminipage
+\end{figure}
+
+We can see some major differences in the shape of the curves, which can be explained by various short-channel effects:
+
+\begin{itemize}
+	\item DIBL (drain induced barrier lowering)
+	\item Channel length modulation (equivalent to BJT early effect)
+	\item 
+\end{itemize}
 
 \newpage
 \appendix
