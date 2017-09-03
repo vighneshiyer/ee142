@@ -1,24 +1,3 @@
-"vd_dc
-References : ['mag(AC.I_Probe1.i)']
-Dependency : [vd_dc]
-Num. Points : [51]
-Matrix Size : scalar
-Type : Real","vg_dc
-References : ['mag(AC.I_Probe1.i)']
-Dependency : [vd_dc,vg_dc]
-Num. Points : [51,51]
-Matrix Size : scalar
-Type : Real","freq
-References : ['mag(AC.I_Probe1.i)']
-Dependency : [?]
-Num. Points : [?]
-Matrix Size : ?
-Type : ?","mag(AC.I_Probe1.i)
-References : []
-Dependency : [vd_dc,vg_dc,freq]
-Num. Points : [51,51,51]
-Matrix Size : scalar
-Type : Real"
 vd_dc, vg_dc, freq, ids_ac
 0.000,0.000,100.0e3,0.000
 0.000,0.000,125.9e3,0.000
