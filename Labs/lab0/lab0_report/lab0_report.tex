@@ -24,11 +24,52 @@
 \maketitle
 
 \section{DC Simulation}
-\subsection{$I_{ds}$ vs $V_{gs}$}
+I setup a DC simulation to characterize the Predictive Transistor Model (PTM) BSIM4 MOSFET device. It's nominal supply is $V_{DD} = 0.9V$ and we sweep its $V_{DS}$ and $V_{GS}$ and record the drain current $I_{DS}$ reported by the model.
 
-\subsection{$I_{ds}$ vs $V_{ds}$}
+\subsection{$I_{ds}$ vs $V_{gs}$ and $I_{ds}$ vs $V_{ds}$}
+\begin{figure}[H]
+	\minipage{0.50\textwidth}
+	\includegraphics[width=\linewidth]{images/short_channel_vgs_vs_ids.png}
+	\endminipage\hfill
+	\minipage{0.50\textwidth}
+	\includegraphics[width=\linewidth]{images/short_channel_vds_vs_ids.png}
+	\endminipage
+\end{figure}
 
-\subsection{Short-Channel vs. Long-Channel MOSFETs}
+\subsection{Long-Channel vs. Short-Channel MOSFETs}
+I used the built-in/default Level 3 MOSFET model in ADS to represent a typical long-channel MOSFET model. Its I-V curves are plotted below.
+\begin{figure}[H]
+	\minipage{0.50\textwidth}
+	\includegraphics[width=\linewidth]{images/long_channel_vgs_vs_ids.png}
+	\endminipage\hfill
+	\minipage{0.50\textwidth}
+	\includegraphics[width=\linewidth]{images/long_channel_vds_vs_ids.png}
+	\endminipage
+\end{figure}
+
+We can see some major differences in the shape of the curves, which can be explained by various short-channel effects:
+
+\begin{itemize}
+	\item DIBL (drain induced barrier lowering)
+	DIBL is a short-channel phenomenon where the threshold voltage of the transistor is reduced as $V_{DS}$ increases. This can be easily seen in the first plot where larger $V_{DS}$ values lead to a significantly smaller value of $V_{th}$ when extrapolated from the plot's linear region. This isn't the case for the long-channel MOSFET model where the extrapolated $V_{th}$ values are very close for a large variation in $V_{DS}$.
+	
+	This effect is particularly pronounced when operating in the subthreshold region, where the DIBL effect can lead to significantly higher subthreshold (leakage) currents, and compromise the power efficiency of smaller transistors.
+
+	\item Channel Length Modulation (similar to BJT early effect)
+	The effect of channel length modulation can be modeled like:
+	
+	\begin{equation}
+		I_{DS} = I_{DS}_{nominal} \cdot (1 + \lambda V_{DS}) 
+	\end{equation} 
+	
+	which means that the effective channel length of the FET is affected by $V_{DS}$. This can be seen by comparing plots 2 and 4, where for the long-channel device, after reaching the point of $V_{DS} = V_{ov}$ the curve flattens out to nearly horizontal, while for the short-channel device, the curve has a positive slope. One effect of channel length modulation is to reduce the small-signal $r_o$ and thereby reduce the FET's small-signal gain.
+	
+	\item Velocity Saturation
+	A short-channel MOSFET's carrier velocity is proportional to the strength of the electric field caused by the voltage applied at the gate relative to the source up until a particular point, where the charge carriers can't move any faster. This limits the actual current below the current predicted by the quadratic law for saturation region operation.
+	
+	We can see this effect in plots 2 and 4, where for a long-channel device the drain current scales quadratically with $V_{GS}$ but for the short-channel device, the drain current scales linearly with $V_{GS}$ in the saturation region.
+
+\end{itemize}
 
 \newpage
 \appendix
