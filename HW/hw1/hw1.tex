@@ -57,4 +57,25 @@ where $a$ is the dipole radius, $L$ is the dipole length, $\lambda$ is the wavel
 	\lim\limits_{L \rightarrow 0} \text{Radiation Efficiency} = 0 \nonumber
 \end{eqnarray}
 
+\section{Minimum Detectable Signal}
+\begin{quote}
+	(a) What determines the minimum detectable signal for a receiver? (Hint: What do you hear on an analog radio when it's tuned to a channel without a station?) (b)	What determines the largest signal? (Hint: Consider an audio amplifier that is driven with a signal that is too large for it to handle? Radio receivers also employ	amplifiers that exhibit the same behavior.)
+\end{quote}
+
+The minimum detectable signal at the receiver is determined by its noise floor and the required minimum SNR to decode the received signal for a given modulation mode. Some modulation modes like spread spectrum are more noise tolerant while others like a large constellation QAM are heavily impacted by a noisy channel. 
+
+Also important is the data rate and bandwidth of the signal at the transmitter. For a fixed transmit power, a low data rate will consume smaller bandwidth than a high data rate and thus can benefit from noise averaging to extract the signal from the noise at the receiver (determines the minimum SNR needed to decode).
+
+The largest signal decodable at the receiver is determined by the modulation scheme and the linearity/saturation point of the front end amplifiers. For a simple modulation scheme like OOK, the receiver signal amplitude won't affect the decodability of the signal. Same is true for modes like FSK and PSK. However AM modes will suffer from amplifier saturation since the various signal levels will be hard to distinguish.
+
+\section{Received Signal Strength}
+\begin{quote}
+	(a) What's the typical received signal strength of a cellular phone? (b) What voltage does that impart onto the antenna? (c) How about for WLAN (Wi-Fi)? (Hint: Use	the signal strength indicator of your WLAN utility or a program such as iStumbler on a Mac. There's also a very nice command line utility called "airport" that provides this information.)
+\end{quote}
+
+A typical cellular signal strength at the receiver is around -75 dBm. The voltage imparted onto the antenna depends on its impedance, which is typically matched to 50 Ohms in the cellular band. $P = V^2 / R \rightarrow 32pW = V^2 / 50 \rightarrow V = 40 \mu V$
+
+My wifi receiver saw a signal strength of -70 dBm, which is similar to the cellular signal strength.
+
+\section{}
 \end{document}
