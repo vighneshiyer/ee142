@@ -77,5 +77,66 @@ A typical cellular signal strength at the receiver is around -75 dBm. The voltag
 
 My wifi receiver saw a signal strength of -70 dBm, which is similar to the cellular signal strength.
 
-\section{}
+\section{Cable Loss}
+\begin{quote}
+(a) What is the typical loss of a coaxial cable at 1 GHz? (b) What determines the maximum power that we may transmit into a cable? (c) Assuming a minimum detectable signal of -90 dBm (75$\Omega$), what is the maximum distance we can communication over a cable? To answer this question, use the results of part (b).
+\end{quote}
+
+The loss of a RG142 coax cable at 1 Ghz is speced at 41.01 dB/100m.
+
+The maximum power we can transmit through a cable is determined by the cable's maximum voltage rating (determined by the dielectric used and the cable geometry) and the cable's thermal dissipation limits. If the average power transmitted through the cable can't be dissipated fast enough, the rising heat will increase the cable's loss and make it ineffective. RG142 is rated for 550 W at 1 Ghz. The transmitted frequency also makes a difference as to how much power can be driven through the cable without increasing its loss significantly.
+
+If we apply the maximum power to a RG142 cable (57 dBm), then the maximum distance is calculated by: $57 - 41.01 \cdot d = -90 \rightarrow d = 358$ meters.
+
+\section{Overcoming Cable Loss}
+\begin{quote}
+	How do we increase the communication distance beyond the limits imposed in the previous problem? Why can we not do this indefinitely?
+\end{quote}
+
+We can increase the cable length and accept the greater loss, and then amplify the signal at the receiver end back to -90 dBm. If thermal noise and the amplifier's noise were non-existent, then we could do this indefinitely, but those sources of noise limit how far this technique can go. An intentionally designed-to-be-sensitive low BW receiver noise floor can be as low as -150 dBm.
+
+The noise floor of a receiver can be determined by its bandwidth, temperature, and its front-end's noise figure. With the proper system design and a very low data rate, this technique can be used to tolerate the loss of a much longer run of cable.
+
+\section{Termination}
+\begin{quote}
+Why are cables terminated? Termination is the process of adding a resistance to the end of a cable transmission line equal in value to the characteristic resistance of the line (or designing the input stage of the receiver to have the same impedance as the line).
+\end{quote}
+
+According to transmission line theory, if a lossless cable with a specified characteristic impedance isn't properly terminated with a load equal to it's characteristic impedance, then there will be signal reflections. So long as the termination resistance isn't completely open or short on both sides of the transmission line, the reflections of a pulse will die out over time, but a continuous wave transmission will result in a standing wave on the transmission line.
+
+Improperly terminated cables will reflect power back to the transmitter, possibly damaging it. They will also degrade the system's power margin, and could cause data transmission errors from transmitter to receiver.
+
+\section{Communication Link Range}
+\begin{quote}
+	A given communication link is tested over the ocean and found to have a range of 10 km. However when the same link is tested in downtown SF, the range is only
+	1 km. (a) Why? (Hint: Putting the transmitter at the top of a building helps, but does not completely solve the problem). (b) It is found that the signal quality varies dramatically if one walks a few meters around a given location. Explain.
+\end{quote}
+
+A radio link over a short stretch of ocean will be a line of sight system where the wave propagation from transmitter to receiver is point-to-point. In a city environment, the same radio link is usually not in a line of sight configuration, but placing the transmitter at a higher elevation can put more receivers in its line of sight and thus improve range.
+
+Large variations in received signal strength in the same geographical area can mean that multipath propagation is an issue. If transmitted signals can reach the receiver through multiple paths, then those signals can add up constructively or destructively at different geographical points.
+
+\section{Wifi Throughput}
+\begin{quote}
+In a quiet cafe in downtown Berkeley your Wi-Fi connection is very strong and you can transmit at maximum throughput. However, as more people come in and turn on
+their laptops, you find your throughput decreasing. (a) Why? (b) How is the bandwidth shared in this scenario?
+\end{quote}
+
+There are a fixed number of Wifi channels and only 3 of them do not share any bandwidth. Once those channels fill up with users, there end up being many people who want to transmit over each other, so there has to be some way to share the bandwidth. The Wifi standard uses OFDM as a digital modulation technique and it can be combined with DSSS or other CDMA techniques to allow multiple users to share the same channels. However as a consequence, when using a spread spectrum technique, the data rate must be reduced to be slower than the code, and that along with interference, channel leakage, and increased noise will cause a Wifi system to choose to operate at a lower throughput to reduce errors to an acceptable rate (that's manageable with FEC).
+
+\section{Jammers}
+\begin{quote}
+	(Optional) A "jammer" is a device you can buy (illegal) which is used to drop all mobile calls within a certain radius. Can you explain how this device works?
+\end{quote}
+
+A radio jammer can simply broadcast noise in the band it wishes to jam. Signals that a receiver could once decode are then buried in the noise of jammer and don't have a high enough SNR at the new 'noise floor' to be sensed. This could practically be accomplished by generating noise in baseband and mixing it into the band of interest.
+
+Cellular networks use spread spectrum techniques to be able to recover data signals even in the presence of noise and interference. These techniques however require both the transmitter and receiver to agree upon a code used to modulate the data. Some jammers work by disrupting the ability for this handshaking to occur thus rendering the DSSS technique unable to start up.
+
+\section{Spectral Leakage}
+\begin{quote}
+	(Optional) Suppose that you setup a WiFi network in your house on channel 1 and everything is working great and your maximum throughput is 54 Mbps. A few days later, your neighbor moves in and even though he's on channel 6 (note only 3 WiFi channels are non-overlapping), your throughput has dropped. Why?
+\end{quote}
+
+
 \end{document}
