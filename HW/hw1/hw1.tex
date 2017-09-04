@@ -138,5 +138,5 @@ Cellular networks use spread spectrum techniques to be able to recover data sign
 	(Optional) Suppose that you setup a WiFi network in your house on channel 1 and everything is working great and your maximum throughput is 54 Mbps. A few days later, your neighbor moves in and even though he's on channel 6 (note only 3 WiFi channels are non-overlapping), your throughput has dropped. Why?
 \end{quote}
 
-
+Even though Wifi channels 1 and 6 are non-overlapping, transmissions on any channel occupy more bandwidth than they are speced for, since filters aren't infinitely sharp and upconversion isn't perfect. It is likely that there is some interference from channel 6 leaking outside its designated frequency band into channel 1 which appears as extra noise on the channel. This increased noise can compromise the data integrity of higher order QAMs which are used to support a very high data rate. Wifi automatically detects the channel degradation and an increased error rate and uses a more relaxed modulation scheme like QPSK which is more noise tolerant, but comes at the cost of throughput.
 \end{document}
