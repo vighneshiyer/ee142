@@ -1,0 +1,60 @@
+\documentclass[11pt]{article}
+
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{epstopdf}
+\usepackage{minted}
+\usepackage{parskip}
+\usepackage[toc,page]{appendix}
+\usepackage{gensymb}
+\usepackage{etoolbox}
+\usepackage{setspace}
+\AtBeginEnvironment{quote}{\singlespacing\small}
+% formatting
+\usepackage{fullpage}
+\usepackage{verbatim}
+\let\verbatiminput=\verbatimtabinput
+\def\verbatimtabsize{4\relax}
+
+\begin{document}
+\title{EE 142 HW1}
+
+\author{Vighnesh Iyer}
+\date{Monday, August 28, 2017}
+\maketitle
+
+\section{Antenna Lengths}
+\begin{quote}
+	Many simple antennas, such as a dipole, are most efficient when they are a significant fraction of the wavelength (quarter or half). (a) For operation at 900 MHz, what is the half-wave dipole length? (b) At 2.4 GHz? (c) At 10 MHz? (d) Explain the choice	of carrier frequency based on this information for portable wireless devices. (e) (Bonus) What is the downside of a very short antenna ($l \ll \lambda$)?
+\end{quote}
+
+\begin{eqnarray}
+	\lambda = \frac{c}{f} \nonumber \\
+	\lambda_{900Mhz} = 0.33 \text{ m} \rightarrow \text{0.165 m dipole} \nonumber \\
+	\lambda_{2.4Ghz} = 0.125 \text{ m} \rightarrow \text{0.0625 m dipole} \nonumber \\
+	\lambda_{10Mhz} = 30 \text{ m} \rightarrow \text{15 m dipole} \nonumber
+\end{eqnarray}
+
+To make an effective and small antenna the carrier frequency must be large, so a carrier of 2.4Ghz makes for a small enough antenna to fit in a portable device.
+
+A very short antenna will suffer from a degradation of its radiation efficiency due to the relatively large resistive loss of the antenna compared with longer dipoles. We can model the resistive loss and radiation resistance as: (from the discussion presentation)
+
+\begin{eqnarray}
+	R_{loss} = \frac{L}{6 \pi a} \sqrt{\frac{\pi f \mu}{2 \sigma}} \nonumber \\
+	R_{rad} = 20 \pi^2 (\frac{L}{\lambda})^2 \nonumber \\
+	\text{Radiation Efficiency} = \frac{R_{rad}}{R_{rad} + R_{loss}} \nonumber
+\end{eqnarray}
+
+where $a$ is the dipole radius, $L$ is the dipole length, $\lambda$ is the wavelength, and $f$ is the frequency. We can look at the scaling proportions:
+
+\begin{eqnarray}
+	R_{loss} \propto L \sqrt{\frac{1}{\lambda}} \nonumber \\
+	R_{rad} \propto (\frac{L}{\lambda})^2 \nonumber \\
+	\text{Radiation Efficiency} \propto \frac{L}{L + \lambda^{3/2}} \nonumber \\
+	\lim\limits_{L \rightarrow 0} \text{Radiation Efficiency} = 0 \nonumber
+\end{eqnarray}
+
+\end{document}
