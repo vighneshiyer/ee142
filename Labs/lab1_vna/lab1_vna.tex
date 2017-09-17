@@ -13,7 +13,8 @@
 \def\verbatimtabsize{4\relax}
 
 \begin{document}
-\title{EE142 Lab 0.5 - VNA Calibration}
+\title{EE142 Lab 0.5 Report - VNA Calibration \\
+Lab 1 Pre-lab - Passives @ RF}
 
 \author{Vighnesh Iyer \\
 Department of Electrical Engineering and Computer Sciences\\
@@ -21,7 +22,7 @@ College of Engineering, University of California, Berkeley}
 \date{}
 \maketitle
 
-\section{Testing Cable Phase Stability}
+\section{VNA Calibration: Testing Cable Phase Stability}
 
 \subsection{Two-Port Technique}
 We connect a SMA cable between port 1 and 2. 
@@ -79,7 +80,7 @@ The trace should have moved from its -80 dB state upwards as the cable's electri
 
 We can see that our chosen cable is of mid-range quality and has enough phase stability to perform reliable measurements.
 
-\section{Calibration using E-Cal}
+\section{VNA Calibration: Calibration using E-Cal}
 
 I performed a one-port calibration using the SOL standards first, but I found that they gave inconsistent results and didn't give a good cal when testing other standards.
 
@@ -93,7 +94,7 @@ Here is a Smith chart and $S_{11}$ trace of a open standard directly connected t
 
 We can see that the electrical delay isn't compensated for and the open doesn't look perfect.
 
-\section{Verifying Calibration With Cal Standards}
+\section{VNA Calibration: Verifying Calibration With Cal Standards}
 After E-Cal calibration with the set of cables I used earlier, I tried connecting an open standard to the end of the cable to check the calibration quality.
 
 \begin{figure}[H]
@@ -110,4 +111,42 @@ Comparing it to the reference from the Calibration powerpoint:
 
 We can see that it is a very close match before accounting for offset delay and the cable I used not being held perfectly still.
 
+
+\section{VNA Calibration: Questions}
+
+\begin{enumerate}
+	\item Why do we use a torque wrench when making connections?
+	
+	A torque wrench will mate two connectors such that the impedance mismatch between them is minimized from the connector construction.
+	
+	\item Why should you never rotate the cal standard when you connect it?
+	
+	The cal standard's connector contains several fragile fingers that can be damaged by rotating a pin inside of them.
+	
+	\item How can an SMA cable connector damage a cal standard?
+	
+	If the SMA cable's pin sticks out more than spec, it can damage the fingers of the cal standard.
+	
+	\item What is the difference between a 3.5mm connector and an SMA connector?
+	
+	A 3.5mm connector uses air dielectric versus plastic for SMA and is more fragile. The connectors are compatible however when mated.
+	
+	\item Where is their reference plane?
+	
+	The reference plane is at the base of the dielectric for male and female connectors. 
+	
+	\item Why is it recommended to remove the rubber gaskets from N and SMA connectors?
+	
+	The rubber gaskets can cause connection issues as they are intended for outdoor use.
+	
+	\item Why is it a bad idea to use a cal standard as a load for your amplifier?
+	
+	A cal standard isn't designed to dissipate power and could have its properties changed if subjected to too much power.
+	
+	\item Why should you turn the power down on the network analyzer when you hook up an amplifier?
+	
+	The NA's ports can handle at most +26 dBm of power; an amplifier could easily deliver more power than allowable if it's fed too much power at it's input.	
+\end{enumerate}
+
+\section{Lab 1 Prelab}
 \end{document}
