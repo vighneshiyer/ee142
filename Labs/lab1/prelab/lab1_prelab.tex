@@ -8,6 +8,7 @@
 \usepackage{verbatim}
 \usepackage{moreverb}
 \usepackage{minted}
+\usepackage{amsmath}
 \usepackage{parskip}
 \let\verbatiminput=\verbatimtabinput
 \def\verbatimtabsize{4\relax}
@@ -164,4 +165,32 @@ The component values are: $L = 5$ nH, $R_{x} = 1.15\Omega$, $C_{p} = 400$ fF, $C
 \begin{figure}[H]
 	\centering \includegraphics[width=\textwidth]{images/inductor_impedance.png}
 \end{figure}
+\begin{figure}[H]
+	\centering \includegraphics[width=\textwidth]{images/inductor_inductance.png}
+\end{figure}
+
+\subsubsection{Ideal Behavior}
+The lumped inductor model has an inductance close to the ideal inductor up until around 3 Ghz. If we are more strict, it is only very close up to 1.5 Ghz.
+
+\subsubsection{Self-Resonant Frequency}
+From scanning the plot, the SRF should be around 3.5 Ghz. Calculating:
+
+\begin{equation*}
+	f_{resonance} \approx \frac{1}{2 \pi \sqrt{L C_{x}}} \rightarrow \frac{1}{2 \pi \sqrt{L (C_{x} + C_p)}} = 3.5 \text{ Ghz}
+\end{equation*}
+
+\subsubsection{Inductance Near SRF}
+The effective inductance near SRF goes to 'infinity' (only damped by the resistor). After self-resonance, the inductor behaves like a capacitor with 'negative' inductance.
+
+\subsubsection{Q-Factor}
+\begin{equation*}
+	Q = \frac{|X_L|}{R_x}
+\end{equation*}
+\begin{figure}[H]
+	\centering \includegraphics[width=\textwidth]{images/inductor_q.png}
+\end{figure}
+
+The inductor is very high Q over a very small range of a few Mhz.
+
+\subsection{Distributed Inductor Model}
 \end{document}
