@@ -209,7 +209,35 @@ We use a 5 part distributed inductor model with distributed $L_{w}$ and $C_{w}$ 
 The distributed inductor model doesn't resonate as expected due to each section resonating at the frequency 5x higher than the single lumped circuit. The distributed model will become more reflective of reality around $3.5 \cdot 5 = 17.5$ Ghz when resonance will take place within each winding and the impedance will again spike.
 
 \subsection{Capacitor Analysis}
-We consider a capacitor with component values: $C = 5$ pF, $R_x = 0.25\Omega$, $L_s = 0.75$ nF, $C_p = 20$ fF. We use the lumped capacitor model.
+We consider a capacitor with component values: $C = 5$ pF, $R_x = 0.25\Omega$, $L_s = 0.75$ nH, $C_p = 20$ fF. We use the lumped capacitor model.
 
+\begin{figure}[H]
+	\centering \includegraphics[width=\textwidth-8cm]{images/lumped_capacitor_model.png}
+\end{figure}
+
+\subsubsection{Impedance and Capacitance Plots}
+\begin{figure}[H]
+	\centering \includegraphics[width=\textwidth]{images/cap_impedance.png}
+\end{figure}
+
+\subsubsection{Effective Frequency Range}
+\begin{figure}[H]
+	\centering \includegraphics[width=\textwidth]{images/cap_capacitance.png}
+\end{figure}
+
+The capacitor is only close to the low frequency value below 1 Ghz. If you have a max deviation requirement of 10\%, then the non-ideal capacitor reaches 5.5 pF at 750 Mhz.
+
+\subsubsection{Self-Resonance Frequency}
+The SRF from the LC network only is 2.6 Ghz. The capacitance goes to (-) 'infinity' only limited by the series resistance as the circuit resonates.
+
+\subsubsection{Q Factor}
+\begin{figure}[H]
+	\centering \includegraphics[width=\textwidth]{images/capacitor_q.png}
+\end{figure}
+
+\subsubsection{Smith Chart}
+\begin{figure}[H]
+	\centering \includegraphics[width=\textwidth]{images/cap_smith.png}
+\end{figure}
 
 \end{document}
