@@ -192,5 +192,24 @@ The effective inductance near SRF goes to 'infinity' (only damped by the resisto
 
 The inductor is very high Q over a very small range of a few Mhz.
 
+\subsubsection{Smith Chart}
+\begin{figure}[H]
+	\centering \includegraphics[width=\textwidth]{images/inductor_smith.png}
+\end{figure}
+
 \subsection{Distributed Inductor Model}
+The component values are: $L = 5$ nH, $R_{x} = 1.15\Omega$, $C_{p} = 400$ fF, $C_{x} = 10$ fF.
+
+We use a 5 part distributed inductor model with distributed $L_{w}$ and $C_{w}$ and $R_{w}$. The instructions given in the spec likely have typos, since it doesn't make sense to distribute $C_p$ along with the inductor (landing pads aren't distributed!).
+
+\begin{figure}[H]
+	\centering \includegraphics[width=\textwidth]{images/inductor_distr_impedance.png}
+\end{figure}
+
+The distributed inductor model doesn't resonate as expected due to each section resonating at the frequency 5x higher than the single lumped circuit. The distributed model will become more reflective of reality around $3.5 \cdot 5 = 17.5$ Ghz when resonance will take place within each winding and the impedance will again spike.
+
+\subsection{Capacitor Analysis}
+We consider a capacitor with component values: $C = 5$ pF, $R_x = 0.25\Omega$, $L_s = 0.75$ nF, $C_p = 20$ fF. We use the lumped capacitor model.
+
+
 \end{document}
