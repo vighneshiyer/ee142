@@ -93,10 +93,50 @@ We will derive an equivalent two-port circuit model for a short section of trans
 
 \begin{enumerate}
 	\item For a "pi" equivalent circuit shown below, find the two-port Z matrix.
-		\begin{figure}[H]
+	\begin{figure}[H]
 		\centering \includegraphics[width=\textwidth-6cm]{images/problem2_pi_network.png}
 	\end{figure}
 	
+\end{enumerate}
+
+\section{Impedance Matching for Maximum Power Delivery}
+
+\begin{enumerate}
+	\item What is the maximum power that can be extracted from the source shown below? What is the optimal load impedance for the maximum power delivery to happen?
+		\begin{figure}[H]
+		\centering \includegraphics[width=\textwidth-10cm]{images/problem3a.jpg}
+	\end{figure}
+	
+	\begin{align*}
+		|I_{s}| &= \frac{|V_s|}{|R_s + R_L|} \\
+		I_{s,rms} &= \frac{1}{2} |I_{s}| \\
+		V_{L} &= I_{s,rms} R_L \\
+		P_{L} &= I_{s,rms} V_L = I_{s,rms}^2 R_L = 1/2 (\frac{V_s}{R_s + R_L})^2 R_L \\
+		\frac{\partial P_L}{\partial R_L} &= (\frac{-R_s}{R_L})^2 + 1
+	\end{align*}
+	
+	Setting the denominator of derivative to 0 and solving gives $R_L = \pm R_s \rightarrow R_L = R_s$. Indeed, this minimizes the denominator, and thus maximizes the power delivered to the load.
+	
+	\begin{align*}
+		P_{max} = \frac{V_s^2}{8 R_L} = 2.5 \text{ mW}
+	\end{align*}
+	
+	\item Use this source to drive a $500\Omega$ load ans we directly connect the load to the source, as illustrated by the figure below. What is the power delivered to the $500 \Omega$ load and the load voltage?
+	
+	\begin{figure}[H]
+		\centering \includegraphics[width=\textwidth-8cm]{images/problem3b.jpg}
+	\end{figure}
+
+	\begin{align*}
+		P_L = 0.8 \text{ mW} \\
+		V_L = I_{s,rms} R_L = 0.45 \text{ V}
+	\end{align*}
+	
+	\item Let's try to achieve impedance matching by putting a quarter-wavelength transmission line between the load and source, as indicated by the below figure. Find the characteristic impedance $Z_0$ that maximizes the power delivered to the load. What are the corresponding power and voltage at the load?
+	
+	\begin{figure}[H]
+		\centering \includegraphics[width=\textwidth-8cm]{images/problem3c.jpg}
+	\end{figure}
 \end{enumerate}
 
 \end{document}
