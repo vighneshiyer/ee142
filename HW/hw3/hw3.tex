@@ -121,7 +121,7 @@ We will derive an equivalent two-port circuit model for a short section of trans
 		P_{max} = \frac{V_s^2}{8 R_L} = 2.5 \text{ mW}
 	\end{align*}
 	
-	\item Use this source to drive a $500\Omega$ load ans we directly connect the load to the source, as illustrated by the figure below. What is the power delivered to the $500 \Omega$ load and the load voltage?
+	\item Use this source to drive a $500\Omega$ load and we directly connect the load to the source, as illustrated by the figure below. What is the power delivered to the $500 \Omega$ load and the load voltage?
 	
 	\begin{figure}[H]
 		\centering \includegraphics[width=\textwidth-8cm]{images/problem3b.jpg}
@@ -135,8 +135,14 @@ We will derive an equivalent two-port circuit model for a short section of trans
 	\item Let's try to achieve impedance matching by putting a quarter-wavelength transmission line between the load and source, as indicated by the below figure. Find the characteristic impedance $Z_0$ that maximizes the power delivered to the load. What are the corresponding power and voltage at the load?
 	
 	\begin{figure}[H]
-		\centering \includegraphics[width=\textwidth-8cm]{images/problem3c.jpg}
+		\centering \includegraphics[width=\textwidth-6cm]{images/problem3c.jpg}
 	\end{figure}
+
+	The general form of input impedance for a lossless tline is:
+	
+	\begin{align*}
+		Z_{in}(-l) = Z_0 \frac{Z_L + j Z_0 \tan(\beta l)}{Z_0 + j Z_L \tan(\beta l)}
+	\end{align*}
 \end{enumerate}
 
 \end{document}
