@@ -141,9 +141,8 @@ We will derive an equivalent two-port circuit model for a short section of trans
 		\tanh(x) = x - \frac{x^3}{3} + \frac{2x^5}{15} - ... \text{ for } |x| < \frac{\pi}{2}
 	\end{align*}
 	
-	\begin{align*}
-		
-	\end{align*}
+	We plug the first two terms into the t-line's Z matrix for $\tanh$.
+
 \end{enumerate}
 
 \section{Impedance Matching for Maximum Power Delivery}
@@ -188,8 +187,30 @@ We will derive an equivalent two-port circuit model for a short section of trans
 	The general form of input impedance for a lossless tline is:
 	
 	\begin{align*}
-		Z_{in}(-l) = Z_0 \frac{Z_L + j Z_0 \tan(\beta l)}{Z_0 + j Z_L \tan(\beta l)}
+		Z_{in}(-l) &= Z_0 \frac{Z_L + j Z_0 \tan(\beta l)}{Z_0 + j Z_L \tan(\beta l)} \\
+		Z_{in}(-\lambda/4) &= \frac{Z_0^2}{Z_L} = 50 \rightarrow Z_0 = 158 \Omega \\
+		P_{L} &= P_{max} = 2.5 mW \text{ since the tline is lossless} \\
+		V_{L} &= \sqrt{P_L R_L} = 1.118 \text{ V}
 	\end{align*}
+	
+	\item Following part c) assume the source frequency can change, what is the frequency interval where the power delivered to the $500\Omega$ load is less than 3 dB from the maximum value? Use ADS to verify.
+	
+	Assume that $\epsilon_{eff} = 4$. -3 dB power reduction is equivalent to the power halving. We fix the transmission line's length and $Z_0$ and sweep $\beta$ to find where the effective resistance looking into the transmission line becomes sufficiently high to halve power.
+	
+	\begin{align*}
+		P_L' &= 1/2 (\frac{1}{50 + R_L})^2 R_L = 2.5 /2 \text{ mW} \\
+		\text{Solving: } R_L &= 292 \Omega \\
+		\beta &= 76.1 \text{ to get an effective } R_L \text{ of } 292 \Omega  \\
+		&\rightarrow f' = 1.8 \text{ Ghz}
+	\end{align*}
+	
+	In ADS:
+	
+	\begin{figure}[H]
+		\centering \includegraphics[width=\textwidth-4cm]{images/problem3d.pdf}
+	\end{figure}
+
+	The simulation indicates a power halving at around 1.5 Ghz. I suspect my assumption about $\epsilon_{eff}$ was problematic in the hand calculation.
 \end{enumerate}
 
 \end{document}
