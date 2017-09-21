@@ -96,7 +96,49 @@ We will derive an equivalent two-port circuit model for a short section of trans
 	\begin{figure}[H]
 		\centering \includegraphics[width=\textwidth-6cm]{images/problem2_pi_network.png}
 	\end{figure}
+
+	Let's call the current flowing \emph{into} node 1 $i_1$ and the current flowing \emph{into} node 2 $i_2$. The voltage applied across node is is $v_1$ and $v_2$ for node 2. We will call each section of the pi network $Z_1, Z_2, Z_3$ going left to right and $Z_1 = Z_3$.
 	
+	\begin{align*}
+		Z_{11} &= \frac{v_1}{i_1} \bigg\rvert_{i_2 = 0} = (Z_1 || (Z_2 + Z_3)) = \frac{Z_1(Z_2 + Z_3)}{Z_1 + Z_2 + Z_3} \\
+		Z_{22} &= Z_{11} \text{ due to symmetry} \\
+		Z_{12} &= \frac{v_1}{i_2} \bigg\rvert_{i_1 = 0} = \frac{Z_1 Z_3}{Z_1 + Z_2 + Z_3} \\
+		Z_{21} &= Z_{12} \text{ due to reciprocity}
+	\end{align*}
+	
+	\begin{align*}
+		Z_1 = Z_3 &= \frac{2}{2j \omega C + G} \\
+		Z_2 &= R + j \omega L
+	\end{align*}
+	
+	\item Consider a section of transmission line with loss. Find the two port Z matrix. Use the transmission line impedance equation (general expression with loss).
+	
+	We begin with the general form using $\rho_L$:
+	
+	\begin{align*}
+		Z_{in}(-l) &= \frac{V(-l)}{I(-l)} = Z_0 \frac{1 + \rho_L e^{-2 \gamma l}}{1 - \rho_L e^{-2 \gamma l}} \\
+		\rho_L &= \frac{Z_L - Z_0}{Z_L + Z_0} \\
+		Z_{in}(-l) &= Z_0 \frac{Z_L(1 + e^{-2 \gamma l}) + Z_0(1 - e^{-2 \gamma l})}{Z_0(1 + e^{-2 \gamma l}) + Z_L(1 - e^{-2 \gamma l})} \\
+		Z_{in}(-l) &= Z_0 \frac{Z_L + Z_0 \tanh(\gamma l)}{Z_0 + Z_L \tanh(\gamma l)} \\
+		\gamma &= \sqrt{(R + j \omega L)(G + j \omega C)} = \alpha + j \beta
+	\end{align*}
+	
+	Now we open and short the transmission line to measure its Z parameters.
+	
+	\begin{align*}
+		Z_{11} &= \frac{v_1}{i_1} \bigg\rvert_{i_2 = 0, Z_L = \infty} = Z_0 \frac{1}{\tanh(\gamma l)} \\
+		Z_{22} &= Z_{11} \text{ due to symmetry} \\
+		Z_{12} &= \frac{v_1}{i_2} \bigg\rvert_{i_1 = 0, Z_L = 0} = Z_0 \tanh(\gamma l) \\
+		Z_{21} &= Z_{12} \text{ due to reciprocity}
+	\end{align*}
+	
+	\item Take the limit of a very short line and simplify the answer (Hint: use a Taylor series expansion and keep only the first few terms).
+	
+	Use the expansion:
+	
+	\begin{align*}
+		\tanh(x) = x - \frac{x^3}{3} + \frac{2x^5}{15} - ... \text{ for } |x| < \frac{\pi}{2}
+	\end{align*}
 \end{enumerate}
 
 \section{Impedance Matching for Maximum Power Delivery}
