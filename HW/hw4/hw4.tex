@@ -1,0 +1,75 @@
+\input{../common.tex}
+
+\newcommand{\headertext}{EE142 Problem Set 4}
+
+\title{\vspace{-0.4in}\Large \bf \headertext \vspace{-0.1in}}
+\author{Vighnesh Iyer}
+
+\date{\today}
+\maketitle
+
+\markboth{\headertext}{\headertext}
+\thispagestyle{empty}
+
+\section*{Problem 1}
+Calculate the scattering parameters of the following circuits:
+
+\begin{enumerate}[label=(\alph*)]
+    \item \textcolor{blue}{Find the input $S_{11}$ for a general two-port terminated at port 2 with a load reflection coefficient of $\Gamma_L$.}
+
+    We will call the wave going into port 1 $V_1^+$, the wave coming out of port 1 $V_1^-$, the wave \emph{into} port 2 $V_2^+$ and the wave out of port 2 $V_2^-$.
+
+    We can then write the voltage waves in terms of the \emph{two-port} S parameters.
+    \begin{align*}
+        V_1^- &= S_{11} V_1^+ + S_{12} V_2^+ \\
+        V_2^- &= S_{21} V_1^+ + S_{22} V_2^+
+    \end{align*}
+
+    Now, if port two is terminated by a load which results in reflection coefficient $\Gamma_L$, then the network effectively becomes a 1 port network. We can write the one-port $S_{11}$ in terms of the two-port S parameters.
+
+    Throughout this problem we will assume that the two-port S parameters, the one port $S_{11}$, and $\Gamma_L$ are with respect to a reference of $Z_0$.
+    \begin{align}
+        V_2^+ &= V_2^- \Gamma_L \nonumber \\
+        V_1^- &= S_{11} V_1^+ + S_{12} V_2^- \Gamma_L \\
+        V_2^- &= S_{21} V_1^+ + S_{22} V_2^- \Gamma_L
+    \end{align}
+
+    \begin{align*}
+        \text{Rewriting equ 2: } V_2^- &= \frac{S_{21} V_1^+}{1 - S_{22}\Gamma_L} \\
+        \text{Plug into equ 1: } V_1^- &= S_{11}V_1^+ + S_{12}\Gamma_L \frac{S_{21} V_1^+}{1 - S_{22}\Gamma_L} \\
+        \text{Finally: } \Aboxed{\frac{V_1^-}{V_1^+} &= S_{11} + \frac{S_{12}S_{21}\Gamma_L}{1 - S_{22}\Gamma_L}} \\
+        \text{Notice: } \frac{V_1^-}{V_1^+} &= S_{11,one-port}
+    \end{align*}
+
+\item \textcolor{blue}{In the previous problem, what is the power that reaches the load in terms of the two-port scattering parameters and $\Gamma_L$? Suppose the input is driven with a matched source.}
+
+    We derived the available power from the source for a 1-port network to be:
+
+    $$ P_{avs} = \frac{|V_s|^2}{8 Z_0} $$
+
+    where $V_s$ is the amplitude at the generator. Assuming a perfect input match:
+
+    $$ V_1^+ = V_s / 2 $$
+
+    The power seen by the load can be found as:
+
+    $$ P_L = \frac{|V_2^-|^2 - |V_2^+|^2}{2 Z_0} = \frac{|V_2^-|^2(1-|\Gamma_L|^2)}{2 Z_0} $$
+
+    Recall from the previous part that $V_2^-$ can be written in terms of S parameters:
+
+    $$ V_2^- = \frac{S_{21} v_1^+}{1 - S_{22}\gamma_L} $$
+
+    Then, $P_L$ can be written as such:
+
+    $$ P_L =  \frac{|S_{21}|^2 |v_1^+|^2}{|1 - S_{22}\Gamma_L|^2} \cdot \frac{1 - |\Gamma_L|^2}{2 Z_0} $$
+
+    Substituting for $V_1^+$:
+    \begin{align*}
+        \Aboxed{P_L = \frac{|S_{21}|^2 |v_s|^2}{4|1 - S_{22}\Gamma_L|^2} \cdot \frac{1 - |\Gamma_L|^2}{2 Z_0}}
+    \end{align*}
+
+    \item Derive the two-port scattering parameters of a three-port where port 3 is
+        terminated in a load with reflection coefficient $\Gamma_L$.
+
+\end{enumerate}
+\end{document}

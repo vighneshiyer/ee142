@@ -1,0 +1,29 @@
+    %\begin{figure}[H]
+    %\begin{center}
+    %    \begin{circuitikz} [american voltages, baseline=(current bounding box.center)]
+    %        \ctikzset { label/align = straight }
+    %        \draw (0,0)
+    %        to[transmission line,o-o,l=$Z_0$] (2, 0)
+    %        to[short] (2.5,0);
+            %to[V=$V_{Th}$] (0,2)
+            %to[R=$R_{Th}$] (2.5,2)
+            %to[short,i=$I$, -o] (4,2)
+            %to[short] (4.5,2)
+            %(0,0) to[short, -o] (4,0)
+            %to[short] (4.5,0);
+    %        \node[draw,minimum width=2cm,minimum height=2.4cm,anchor=north west] at (2.5,0.2){Two Port Network};
+    %        \end{circuitikz}
+
+                %\node[draw=none,below= 0cm of nmosInv.S] () {$\overline{B}$};
+                %\draw [line] (nmosInv.S) -- ++(-0.5,0);
+                %\draw[line] (nmosInv.S) -- ++ (0.5,0);
+                %\node[draw=none,above= 0cm of pmosInv.S] () {$B$};
+                %\draw [line] (pmosInv.S) -- ++(-0.5,0);
+                %\draw[line] (pmosInv.S) -- ++ (0.5,0);
+                %\node[draw=none,above left = 0.5cm and 0cm of nmosInv.G] () {$A$};
+                %\node[draw=none,above = 0cm of pmosTG.G] () {$B$};
+                %\node[draw=none,below = 0cm of nmosTG.G] () {$\overline{B}$};
+                %\node[draw=none,right= 0cm of pmosTG.S] () {$A$};
+                %\node[draw=none,below right=0.1cm and 0.4cm of pmosInv.D] () {$Out$};
+    %    \end{center}
+    %\end{figure}
