@@ -112,15 +112,22 @@ Calculate the scattering parameters of the following circuits:
 
     The smith chart has been annotated (I'm not going to include any more charts):
 
-    %\begin{figure}[H]
-    %    \centering \includegraphics[height=8cm]{impedance_smith_chart.png}
-    %\end{figure}
+    \begin{figure}[H]
+        \centering \includegraphics[height=8cm]{impedance_smith_chart.png}
+    \end{figure}
 
     We observe $|\rho_L| = 0.15$ and $phase(\rho_L) = 108.5 \deg$. Which translates to $\rho_L = -0.14158 + 0.42313j$. Pretty close.
 
     \item Assume $Z_0 = 50 \Omega$, use the Smith Chart to find the load impedance for $\rho_L = 0.5 + 0.1j$.
 
+    To find $Z_L$ we trace 0.5 units along the x axis and 0.1 units along the y axis of the Smith Chart. Then we just read off the impedance value. I found the value close to $Z_{L,norm} = 3.0 + 0.6j$, which translates to $Z_L = 150 + 30j$. The calculated value is $Z_L = 142 + 38j \Omega$, so the Smith Chart is once again pretty close.
+
     \item Repeat (a) and (b) with $Z_0$ changed to $10\Omega$.
+
+    The same Smith Chart can't be used without modification. We have to normalize our chart to 10 instead of 50, but in addition to that, the scales on the reflection coefficient markers has to change. The $Z_L$ measurement however is just scaled by 5.
+
+    $$ \rho_L = 0.67 + 0.28j $$
+    $$ Z_L = 29.4 + 7.7j \Omega $$
 
     \item For the following two circuits, trace $\rho_L$ on a Smith Chart with $Z_0 = 50\Omega$.
 
@@ -135,7 +142,12 @@ Calculate the scattering parameters of the following circuits:
 \begin{enumerate}[label=(\alph*)]
     \item Assume $Y_0 = 0.02S$, use the Admittance Smith Chart to find the $\rho_L$ for a load impedance $Z_L = 25 + 30j \Omega$.
 
+    The method is similar to the impedance smith chart. We mark the load impedance on the admittance chart and then scale the value on the reflection axis to the measured phase. The result is identical $Z_L = -0.14 + 0.4j \Omega$.
+
     \item Trace $\rho_L$ for the second circuit shown above with the parallel inductor, but on the admittance smith chart.
+    \begin{figure}[H]
+        \centering \includegraphics[width=\textwidth-9cm]{problem2d2.pdf}
+    \end{figure}
 \end{enumerate}
 
 \section*{Problem 4}
