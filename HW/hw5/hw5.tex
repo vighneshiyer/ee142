@@ -1,0 +1,41 @@
+\input{../common.tex}
+
+\newcommand{\headertext}{EE142 Problem Set 5}
+
+\title{\vspace{-0.4in}\Large \bf \headertext \vspace{-0.1in}}
+\author{Vighnesh Iyer}
+
+\date{\today}
+\maketitle
+
+\markboth{\headertext}{\headertext}
+\thispagestyle{empty}
+
+\section*{Problem 1}
+{\color{blue}Find $y$ for the following normalized impedance on Smith Chart.}
+
+The straightforward procedure is to plot $z_L$ on the impedance Smith Chart, and then look at what constant admittance and constant suspectance curves cross over the point in the admittance smith chart.
+
+But, we can also plot $z_L$ on the impedance smith chart, then rotate the point by $\pi$ degrees along the constant SWR circle, and then read off the admittance by looking at the constant resistance and reactance curves.
+
+I'm going to use the second technique; annotated charts aren't included in this document, but I'll compare the chart result I get to the exact calculation.
+\begin{enumerate}[label=(\alph*)]
+    \item $z_L = 1.4 + 2j$
+    \begin{align*}
+        y_L = \frac{1}{z_L} = \frac{1}{\alpha + \beta j} = \frac{\alpha - \beta j}{\alpha^2 + \beta^2} &= 0.234899 -0.33557 j \\
+        y_{L,chart} &= 0.22 - 0.32j
+    \end{align*}
+
+    \item $z_L = 0.5 + 0.9j$
+    \begin{align*}
+        y_L &= 0.471698 - 0.849 j \\
+        y_{L,chart} &= 0.45 - 0.85j
+    \end{align*}
+
+    \item $z_L = 1.6 - 0.3j$
+    \begin{align*}
+        y_L &= 
+    \end{align*}
+\end{enumerate}
+
+\end{document}
