@@ -47,7 +47,10 @@ I'm going to use the second technique; annotated charts aren't included in this 
     Let's clear up some things:
     \begin{align*}
         Z_C &= \frac{1}{j \omega C} & X_C &= \Im{Z_C} = - \frac{1}{\omega C} \\
-        Z_L &= j \omega L & X_L &= \Im{Z_L} = \omega L
+        Z_L &= j \omega L & X_L &= \Im{Z_L} = \omega L \\
+        \text{To find } C &= \frac{1}{\omega X_c} \\
+        \text{To find } L &= \frac{X_L}{\omega} \\
+        \text{where: } \omega &= 2 \pi f
     \end{align*}
 
     The load is complex, so we have to resonant out the load's complex impedance so only a real part is seen before solving using the L network method.
@@ -113,11 +116,109 @@ I'm going to use the second technique; annotated charts aren't included in this 
     \end{align*}
 
     We simulate in ADS with $L_{res} = 4.77$ nH, $L = 32.858$ nH, $C = 2.05$ pF.
-    The simulation shows that these values give a perfect match at 1 Ghz. This match appears more broadband than the one in part a).
+    The simulation shows that these values give a perfect match at 1 Ghz. This match appears more broadband than the one in part a). The Smith Chart again gives very similar values.
 
     \item Match $Z_L = 160-30j \Omega$ to 100 Ohm using transmission lines.
+
     \item Match $Z_L = 25 + 90j \Omega$ to 50 Ohm using lumped circuits.
+    Assume a resonating capacitor with reactance $-90j$ to make the load purely real.
+    \begin{align*}
+        R_S &= 50 \\
+        R_L &= 25 \\
+        R_{hi} &= max(R_S, R_L) = 50 \\
+        R_{lo} &= min(R_S, R_L) = 25 \\
+        \text{Boosting factor: } m &= \frac{R_{hi}}{R_{lo}} = 2.0 \\
+        Q &= \sqrt{m-1} = 1.0 \\
+        \text{Boosting resistance so, } X_s &= Q \cdot R_L = 25 \\
+        X_s' &= X_s(1 + Q^{-2}) = 50 \\
+        X_p &= -X_s' = -50
+    \end{align*}
+
+    We simulate in ADS with $C_{res} = 1.768$ pF, $C = 3.183$ pF, $L = 3.98$ nH. The results confirm a perfect match at 1 Ghz.
+
     \item Match $Z_L = 25 + 90j \Omega$ to 50 Ohm using transmission lines.
+\end{enumerate}
+
+\section*{Problem 3}
+
+\begin{enumerate}[label=(\alph*)]
+    \item {\color{blue}Design a $\Pi$ matching network between a 1000$\Omega$ load impedance and a $50 \Omega$ source impedance at 1 Ghz. The inductor and capacitor quality factors are 20. The target bandwidth for $|S_{11}| < -10$ dB is 5\%. Calculate the insertion loss and verify your design using ADS. Check if $|S_{11}|^2 + |S_{21}|^2 = 1$ holds.}
+
+    Let's first analyze an L-network to see if it can fit our design requirements.
+
+    \begin{align*}
+        Q_{cap} &= Q_{ind} = 20 \\
+        m = \frac{R_{hi}}{R_{lo}} = 20 \rightarrow Q &= \sqrt{m-1} \approx 4.359 \\
+        Q_{total,L-network} &= \frac{Q}{2} \approx 2.2 \\
+        S_{11} \text{ -10 dB BW} &\approx \frac{1}{3 \cdot Q_{total}} = 15\% \\
+        \text{Insertion Loss} &= \frac{1}{1 + \frac{Q}{Q_{cap}} + \frac{Q}{Q_{ind}}} = 0.694
+    \end{align*}
+
+    The bandwidth of the L-network is too high and isn't selective enough for our requirements.
+    The bandwidth is set (approximately) by the circuit Q and so we need to use a $\Pi$ network so $Q$ doesn't depend on $m$.
+
+    \begin{align*}
+        \frac{1}{3 \cdot Q_{tot}} \approx 0.05 \rightarrow Q_{tot} &\geq 6 \\
+        Q_1 &= \sqrt{\frac{R_L}{R_i} - 1} \\
+        Q_2 &= \sqrt{\frac{R_S}{R_i} - 1} \\
+        Q_{tot} &= \frac{Q_1 + Q_2}{2} \\
+        R_i &\leq 8.108
+    \end{align*}
+
+    We find that the intermediate resistance should be less than 8.108 $\Omega$ to keep the bandwidth below 5\%. We will design for $R_i = 5 \Omega$.
+
+    Here are all the derived parameters:
+
+    \begin{center}
+    \begin{tabular}{l | l | l |}
+        & L-network 1 & L-network 2 \\ \hline
+        m & 200 & 10 \\ \hline
+        Q & 14.11 & 3 \\ \hline
+        $X_p$ & 70.888 & 16.666 \\ \hline
+        $X_s$ & 70.534 & 15.0 \\ \hline
+        $C$ & 2.245 pF & 9.549 pF \\ \hline
+        $L$ & 11.2 nH & 1.39 nH \\ \hline
+    \end{tabular}
+    \end{center}
+
+    assuming capacitors are placed in parallel and inductors in series. $Q_{tot}$ is around 8.5.
+
+    \begin{figure}[H]
+        \begin{center}
+            \begin{circuitikz}
+                \draw (0,0) to[vsourcesin] (0,2)
+                    to[R, l=$50 \Omega$] (2,2)
+                    to[generic, l=$L_1 + L_2$] (4,2)
+                    to[generic, l=$C_1$] (4,0);
+                \draw (4,2) to[short] (6,2)
+                    to[R, l=$1000 \Omega$] (6,0);
+                \draw (2,2) to[generic,l=$C_2$] (2,0);
+
+                \draw (0,0) node[ground] (ground1) {};
+                \draw (2,0) node[ground] (ground1) {};
+                \draw (4,0) node[ground] (ground1) {};
+                \draw (6,0) node[ground] (ground1) {};
+            \end{circuitikz}
+        \end{center}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering \includegraphics[width=\textwidth-4cm]{problem3a_bandwidth.pdf}
+        \caption{Simulation with lossless components}
+    \end{figure}
+
+    We run a simulation and find that for lossless components, the bandwidth of $S_{11}$ down to -10 dB is 39.7 Mhz, which is within our 50 Mhz design spec.
+
+    \begin{figure}[H]
+        \centering \includegraphics[width=\textwidth-4cm]{problem3a_finite_q.pdf}
+        \caption{Simulation with finite Q}
+    \end{figure}
+    When adding finite Q components, the bandwidth isn't very different, but the insertion loss at 1 Ghz becomes significant.
+    However the $S_{11}$ -10dB bandwidth becomes infinite/zero since $S_{11}$ never dips below -10dB.
+    It is possible that the Q of these components isn't sufficient to achieve -10dB input selectivity.
+    It's also possible that my design isn't optimized sufficiently.
+
+    \item {\color{blue}Design a matching network between a $1000 \Omega$ load impedance and a $50\Omega$ source impedance at 1 Ghz. The inductor and capacitor quality factors are 20. The design goal is to achieve the lowest insertion loss. Calculate the insertion loss and verify your design using ADS.}
 \end{enumerate}
 
 \end{document}
