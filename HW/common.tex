@@ -109,19 +109,6 @@ example={#2}{#3},#1}
 \newcommand{\instbit}[1]{\mbox{\scriptsize #1}}
 \newcommand{\instbitrange}[2]{\instbit{#1} \hfill \instbit{#2}}
 
-\newif\ifsolution
-
-\if\issolution1
-\newenvironment{solution}
-    {\color{red}}
-    {\color{black}}
-\solutiontrue
-\else
-\excludecomment{solution}
-\solutionfalse
-\fi
-
-
 \graphicspath{{./figs/}}
 
 

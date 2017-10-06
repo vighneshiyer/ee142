@@ -34,8 +34,90 @@ I'm going to use the second technique; annotated charts aren't included in this 
 
     \item $z_L = 1.6 - 0.3j$
     \begin{align*}
-        y_L &= 
+        y_L &= 0.60377 + 0.1132j \\
+        y_{L,chart} &= 0.6 + 0.12j
     \end{align*}
+\end{enumerate}
+
+\section*{Problem 2}
+{\color{blue}Use the Smith Chart. Also use equations for lumped component matching to check.}
+\begin{enumerate}[label=(\alph*)]
+    \item Match $Z_L = 70 + 100j \Omega$ to 50 Ohm with lumped components.
+
+    Let's clear up some things:
+    \begin{align*}
+        Z_C &= \frac{1}{j \omega C} & X_C &= \Im{Z_C} = - \frac{1}{\omega C} \\
+        Z_L &= j \omega L & X_L &= \Im{Z_L} = \omega L
+    \end{align*}
+
+    The load is complex, so we have to resonant out the load's complex impedance so only a real part is seen before solving using the L network method.
+    \begin{figure}[H]
+        \begin{center}
+            \begin{circuitikz}
+                \draw (0,0) to[generic] (0,-2);
+                \draw (-2,0) to[generic] (0,0);
+                \draw (-2,0) to[generic] (-2,-2);
+                \draw (-4,0) to[generic] (-2,-0);
+                \draw (-4.25,0) to[short, o-] (-4,0);
+                \draw (0,-2) node[ground] (ground) {};
+                \draw (-2,-2) node[ground] (ground1) {};
+                \node[draw=none] at (1.25, -1) {$70 + 100j$};
+                \node[draw=none] at (-1, 0.5) {$-100j$};
+                \node[draw=none] at (-1.5, -1) {$L$};
+                \node[draw=none] at (-3, 0.5) {$C$};
+            \end{circuitikz}
+        \end{center}
+    \end{figure}
+
+    Now, the L-network will see a purely real $70\Omega$ impedance with which we can use the regular matching equations.
+    \begin{align*}
+        R_S &= 50 \\
+        R_L &= 70 \\
+        R_{hi} &= max(R_S, R_L) = 70 \\
+        R_{lo} &= min(R_S, R_L) = 50 \\
+        \text{Boosting factor: } m &= \frac{R_{hi}}{R_{lo}} = 1.4 \\
+        Q &= \sqrt{m-1} = 0.632 \\
+        \text{Dropping resistance so, } X_p &= \frac{R_L}{Q} = 110.76 \\
+        X_p' &= \frac{X_p}{1 + Q^{-2}} = 31.613 \\
+        X_s &= -X_p' = -31.613
+    \end{align*}
+
+    We arrive at the capacitor reactance of $-79.15j$ and the inductor reactance of $110.76j$.
+    The circuit is simulated in ADS to match at 1 Ghz with component values $C = 5.0344$ pF, $L = 17.6$ nH, and $C_{res} = 1.59$ pF.
+    S-parameter simulation verifies that the source and load are perfectly matched at 1 Ghz with $S_{21} = 0 dB$.
+
+    The same calculation can be performed using the smith chart.
+    \begin{align*}
+        Z_{L,norm} &= 1.4 + 2j \\
+        Z_{L,real} &= 1.4 \\
+        X_p = (1/0.45)j \cdot 50 &= 111.1j \\
+        X_s = -0.62 \cdot 50 &= -31j
+    \end{align*}
+
+    The values calculated using the Smith Chart are very close to the values from the equations.
+
+    \item Match $Z_L = 70 + 100j \Omega$ to 50 Ohm using transmission lines.
+    \item Match $Z_L = 160 - 30j \Omega$ to 100 Ohm using lumped circuits.
+
+    Assume a resonating inductor with reactance $30j$ to make the load purely real.
+    \begin{align*}
+        R_S &= 100 \\
+        R_L &= 160 \\
+        R_{hi} &= max(R_S, R_L) = 160 \\
+        R_{lo} &= min(R_S, R_L) = 100 \\
+        \text{Boosting factor: } m &= \frac{R_{hi}}{R_{lo}} = 1.6 \\
+        Q &= \sqrt{m-1} = 0.775 \\
+        \text{Dropping resistance so, } X_p &= \frac{R_L}{Q} = 206.452 \\
+        X_p' &= \frac{X_p}{1 + Q^{-2}} = 77.47 \\
+        X_s &= -X_p' = -77.47
+    \end{align*}
+
+    We simulate in ADS with $L_{res} = 4.77$ nH, $L = 32.858$ nH, $C = 2.05$ pF.
+    The simulation shows that these values give a perfect match at 1 Ghz. This match appears more broadband than the one in part a).
+
+    \item Match $Z_L = 160-30j \Omega$ to 100 Ohm using transmission lines.
+    \item Match $Z_L = 25 + 90j \Omega$ to 50 Ohm using lumped circuits.
+    \item Match $Z_L = 25 + 90j \Omega$ to 50 Ohm using transmission lines.
 \end{enumerate}
 
 \end{document}
