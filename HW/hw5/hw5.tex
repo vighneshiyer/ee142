@@ -100,6 +100,37 @@ I'm going to use the second technique; annotated charts aren't included in this 
     The values calculated using the Smith Chart are very close to the values from the equations.
 
     \item Match $Z_L = 70 + 100j \Omega$ to 50 Ohm using transmission lines.
+
+    This is the general procedure for parallel stub matching using a Smith Chart.
+    \begin{enumerate}
+        \item Find the load impedance and normalize it to the transmission line $Z_0$ (nominally $50 \Omega$)
+        \item Plot the load impedance on the Smith Chart
+        \item Reflect the point across the origin so we have a new point representing the load admittance. \textbf{The impedance Smith Chart is now an admittance chart.}
+        \item Draw the constant SWR circle and move towards the generator until we intersect with the admittance = 1 circle
+        \item Note the angle in $\lambda$ that we had to move across to get from the load admittance to the G=1 circle.
+            This is the distance to move from the load towards the generator along the main tline before inserting the parallel stub.
+        \item Now, we are at a point where the normalized admittance can be written in the form $1 + jB$.
+            We need to insert a short or open stub with an admittance in THIS location of $0 - jB$, so mark the point $-jB$ on the Smith Chart.
+        \item To figure out the length of the stub, note that on this \textbf{admittance} chart, short is at the very right and open is at the very left.
+            Now, move towards the short or open load and read off the angle swept in $\lambda$.
+    \end{enumerate}
+
+    We follow the procedure:
+    \begin{align*}
+        l_{from,load,on-main-tline} &= (0.5 - 0.4465) + 0.1845 = 0.238 \lambda \\
+        l_{to,short,on-stub-tline} &= 0.25 - 0.1715 = 0.0785 \lambda
+    \end{align*}
+
+    Confirm with ADS simulation (at 1 Ghz):
+    \begin{figure}[H]
+        \minipage{0.50\textwidth}
+        \includegraphics[width=\linewidth]{problem2b_sim_schematic.pdf}
+        \endminipage\hfill
+        \minipage{0.50\textwidth}
+        \includegraphics[width=\linewidth]{problem2b_sim_results.pdf}
+        \endminipage
+    \end{figure}
+
     \item Match $Z_L = 160 - 30j \Omega$ to 100 Ohm using lumped circuits.
 
     Assume a resonating inductor with reactance $30j$ to make the load purely real.
