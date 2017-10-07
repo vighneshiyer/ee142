@@ -151,6 +151,21 @@ I'm going to use the second technique; annotated charts aren't included in this 
 
     \item Match $Z_L = 160-30j \Omega$ to 100 Ohm using transmission lines.
 
+    Following same procedure:
+    \begin{align*}
+        Z_{L,norm} &= 1.6 - 0.3j \\
+        l_{from,load,on-main-tline} &= 0.146 - 0.0315 = 0.1145 \lambda  \\
+        l_{to,short,on-stub-tline} &= (0.25 - 0.0775) = 0.1725 \lambda
+    \end{align*}
+    \begin{figure}[H]
+        \minipage{0.50\textwidth}
+        \includegraphics[width=\linewidth]{problem2d_sim_schematic.pdf}
+        \endminipage\hfill
+        \minipage{0.50\textwidth}
+        \includegraphics[width=\linewidth]{problem2d_sim_results.pdf}
+        \endminipage
+    \end{figure}
+
     \item Match $Z_L = 25 + 90j \Omega$ to 50 Ohm using lumped circuits.
     Assume a resonating capacitor with reactance $-90j$ to make the load purely real.
     \begin{align*}
