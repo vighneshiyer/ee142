@@ -218,7 +218,47 @@ I'm going to use the second technique; annotated charts aren't included in this 
     It is possible that the Q of these components isn't sufficient to achieve -10dB input selectivity.
     It's also possible that my design isn't optimized sufficiently.
 
+    \begin{figure}[H]
+        \centering \includegraphics[width=\textwidth-4cm]{problem3a_relationship.pdf}
+    \end{figure}
+    In the finite Q simulation, the relationship $|S_{11}|^2 + |S_{21}|^2 = 1$ doesn't hold near the center frequency. This is due to the internal loss of the finite Q components.
+
     \item {\color{blue}Design a matching network between a $1000 \Omega$ load impedance and a $50\Omega$ source impedance at 1 Ghz. The inductor and capacitor quality factors are 20. The design goal is to achieve the lowest insertion loss. Calculate the insertion loss and verify your design using ADS.}
+
+    \begin{align*}
+        \text{IL} = \frac{1}{1 + \frac{N}{Q_u} \sqrt{(\frac{R_{hi}}{R_{lo}})^{1/N} - 1}}
+    \end{align*}
+
+    We use this equation with our design variables to find the ideal value of $N$. We let $Q_u = Q_{cap} || Q_{ind} = 10$.
+
+    \begin{figure}[H]
+        \centering \includegraphics[width=\textwidth-4cm]{problem3b_ideal_sections.png}
+    \end{figure}
+
+    Insertion loss is minimized with 2 L-network stages. $IL_{max} = 0.729$.
+
+    \begin{align*}
+        R_{i,opt} &= \sqrt{R_L R_S} = 223.6 \\
+        Q_{i,opt} &= \sqrt{(\frac{R_{hi}}{R_{lo}})^{1/N} - 1} = 1.863
+    \end{align*}
+
+    Now we can again go through the process of calculating actual component values.
+    \begin{center}
+    \begin{tabular}{l | l | l |}
+        & L-network 1 & L-network 2 \\ \hline
+        $X_p$ & 536.66 & 120.0 \\ \hline
+        $X_s$ & 416.66 & 93.168 \\ \hline
+        $C$ & 0.296 pF & 1.326 pF \\ \hline
+        $L$ & 66.3 nH & 14.8 nH \\ \hline
+    \end{tabular}
+    \end{center}
+
+    Again assuming that capacitors are in shunt and inductors in series. Use these values and run a finite Q simulation.
+    \begin{figure}[H]
+        \centering \includegraphics[width=\textwidth-4cm]{problem3b_insertion_loss.pdf}
+    \end{figure}
+
+    The simulation confirms a low insertion loss of around -1.5 dB. This is about 4dB better than the $\Pi$ network.
 \end{enumerate}
 
 \end{document}
