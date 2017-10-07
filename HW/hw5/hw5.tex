@@ -168,6 +168,22 @@ I'm going to use the second technique; annotated charts aren't included in this 
     We simulate in ADS with $C_{res} = 1.768$ pF, $C = 3.183$ pF, $L = 3.98$ nH. The results confirm a perfect match at 1 Ghz.
 
     \item Match $Z_L = 25 + 90j \Omega$ to 50 Ohm using transmission lines.
+
+    Following same procedure:
+    \begin{align*}
+        Z_{L,norm} &= 0.5 + 1.8j \\
+        l_{from,load,on-main-tline} &= (0.5 - 0.4237) + 0.199 = 0.2753 \lambda  \\
+        l_{to,short,on-stub-tline} &= (0.25 - 0.1933) = 0.0567 \lambda
+    \end{align*}
+    \begin{figure}[H]
+        \minipage{0.50\textwidth}
+        \includegraphics[width=\linewidth]{problem2f_sim_schematic.pdf}
+        \endminipage\hfill
+        \minipage{0.50\textwidth}
+        \includegraphics[width=\linewidth]{problem2f_sim_results.pdf}
+        \endminipage
+    \end{figure}
+
 \end{enumerate}
 
 \section*{Problem 3}
