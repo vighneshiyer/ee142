@@ -1,0 +1,37 @@
+\input{../common.tex}
+
+\newcommand{\headertext}{EE142 Problem Set 6}
+
+\title{\vspace{-0.4in}\Large \bf \headertext \vspace{-0.1in}}
+\author{Vighnesh Iyer}
+
+\date{\today}
+\maketitle
+
+\markboth{\headertext}{\headertext}
+\thispagestyle{empty}
+
+\section{Design of a 5-Ghz Linear Microwave Amplifier}
+
+{\color{blue}Use the 32nm PTM HP NMOS model with:
+
+\begin{center}
+\begin{tabular}{| l | l |} \hline
+    $V_D$ & 0.9 V \\ \hline
+    $V_G$ & 0.6 V \\ \hline
+    $L$ & 32 nm \\ \hline
+    $W_{tot}$ & 20 $\mu$m \\ \hline
+    $N_{fingers}$ & 5 \\ \hline
+\end{tabular}
+\end{center}
+}
+
+\begin{figure}[H]
+    \centering \includegraphics[width=\textwidth-6cm]{system_schematic.png}
+\end{figure}
+
+\subsection{Mixer Input Impedance}
+{\color{blue}The mixer input is not $50 \Omega$. What will be the problem if this mixer is used as a connector module like the ones sold by MiniCircuits?}
+
+
+\end{document}
