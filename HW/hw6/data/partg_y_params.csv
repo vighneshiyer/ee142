@@ -1,0 +1,37 @@
+"freq
+References : ['Y(1,1)','Y(1,2)','Y(2,1)','Y(2,2)','Yin_opt']
+Dependency : [freq]
+Num. Points : [1]
+Matrix Size : scalar
+Type : Real","Y(1,1)
+References : []
+Dependency : [freq]
+Num. Points : [1]
+Matrix Size : scalar
+Type : Complex
+Complex Format : Real/Imag","Y(1,2)
+References : []
+Dependency : [freq]
+Num. Points : [1]
+Matrix Size : scalar
+Type : Complex
+Complex Format : Real/Imag","Y(2,1)
+References : []
+Dependency : [freq]
+Num. Points : [1]
+Matrix Size : scalar
+Type : Complex
+Complex Format : Real/Imag","Y(2,2)
+References : []
+Dependency : [freq]
+Num. Points : [1]
+Matrix Size : scalar
+Type : Complex
+Complex Format : Real/Imag","Yin_opt
+References : []
+Dependency : [freq]
+Num. Points : [1]
+Matrix Size : scalar
+Type : Complex
+Complex Format : Real/Imag"
+5.00000000000000000000 GHz,0.00018877830976530798 + j0.00064002450125551008 ,-0.00004039126650098734 - j0.00013696504276319542 ,0.04622374427285384085 - j0.01387208821601543414 ,0.01191839804929870072 + j0.00570147085035360192 ,0.00059929680022284960 + j0.00083068166471774406 
