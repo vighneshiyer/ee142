@@ -68,11 +68,11 @@ The transistor is not unconditionally stable at 1 Ghz. To find a passive load im
 \begin{figure}[H]
     \minipage{0.47\textwidth}
     \includegraphics[width=\linewidth]{partb_stability_circle.pdf}
-    \caption{Stability Circle (not scaled to unit impedance circle)}
+    \caption{Load Stability Circle (not scaled to unit impedance circle)}
     \endminipage\hfill
     \minipage{0.47\textwidth}
     \includegraphics[width=\linewidth]{partb_stability_circle_scaled.pdf}
-    \caption{Stability Circle (in unit impedance circle)}
+    \caption{Load Stability Circle (in unit impedance circle)}
     \endminipage
 \end{figure}
 
@@ -81,5 +81,55 @@ It can be seen that for sufficiently inductive loads, the transistor isn't stabl
     \centering \includegraphics[width=\linewidth-6cm]{partb_yin_vs_zload.pdf}
     \caption{$Z_L = 50 + j Z_{load}$}
 \end{figure}
+
+\subsection{Move Pole to Im Axis}
+{\color{blue} Following (b), find the passive source impedance at 1 Ghz that moves the system pole to the imaginary axis.}
+
+If the system pole is moved to the imaginary axis, it indicates that the system is marginally stable.
+This would correspond to when the system poles for this circuit move from possible instability to certain stability by changing the source impedance.
+We can plot the source stability circle and take a point right on the circle.
+\begin{figure}[H]
+    \centering \includegraphics[width=\linewidth-6cm]{partc_stability_circle.pdf}
+    \caption{Source Stability Circle}
+\end{figure}
+We can immediately read off a value of $Z_s = 1.0 + 5j$ (normalized to 50 $\Omega$).
+
+\subsection{Stabilize with Series Resistor}
+{\color{blue} Add a series resistor at the transistor gate to make the device unconditionally stable at 5 Ghz with $k=1.2$.
+What is the resistor value and the maximum transducer gain of this new device (FET+resistor) at 5 Ghz?
+Plot $k$ versus frequency}
+
+\begin{figure}[H]
+    \minipage{0.47\textwidth}
+    \includegraphics[width=\linewidth]{partd_rs_sweep.pdf}
+    \caption{Series resistance sweep vs. K}
+    \endminipage\hfill
+    \minipage{0.47\textwidth}
+    \includegraphics[width=\linewidth]{partd_stability_and_gain_vs_freq.pdf}
+    \caption{Stability and Gain of Device at 5 Ghz}
+    \endminipage
+\end{figure}
+
+We see an ideal series resistance of $274 \Omega$ and a max gain of 22.5 dB.
+
+\subsection{Drawbacks of Series Resistance}
+{\color{blue} The new device still has $k < 1$ as 1 Ghz, which is undesireable because the load and source impedances of a 5 Ghz design are usually not controlled at 1 Ghz.
+Therefore, a pair of undesired source and load impedances at 1 Ghz can make the system unstable and the 5 Ghz amplifier is no longer useable.
+Further increasing the series resistor can make $k > 1$ at 1 Ghz.
+What is the main drawback of this approach?}
+
+The main drawback is losing maximum transducer gain. As the source resistance increases, it dissipates more power and the overall power gain of the circuit is reduced.
+
+\subsection{Max Voltage Gain and Power Gain}
+{\color{blue} We will eventually make $k > 1$ at all frequencies with a better method. Let's focus on the 5 Ghz design for now. Assuming the source resistor is $50 \Omega$, what is the voltage gain ($V_{in,mixer}/V_s$) and power gain ($P_{in,mixer}/P_{avs}$) without any matching network?}
+
+We use a $50 \Omega$ source resistance and the gate resistance from part (d) to stabilize the amplifier at 5 Ghz. The load is replaced with the mixer input impedance model.
+
+To use a standard S-parameter termination, we use a parallel to series conversion.
+
+\begin{align*}
+asdf
+\end{align*}
+
 
 \end{document}
