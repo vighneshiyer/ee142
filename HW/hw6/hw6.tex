@@ -33,5 +33,53 @@
 \subsection{Mixer Input Impedance}
 {\color{blue}The mixer input is not $50 \Omega$. What will be the problem if this mixer is used as a connector module like the ones sold by MiniCircuits?}
 
+The connector modules assume operation in a $50 \Omega$ environment.
+Since the mixer input is $1000 \Omega$, any modules driving it will not be able to achieve the maximum possible power transfer to the mixer. Also, the reflections produced will distort the input waveform to the mixer.
+
+\subsection{Stability Factor}
+{\color{blue}Plot the stability factor ($k$), of this device versus frequency.
+Is the device unconditionally stable at 1 Ghz?
+If not, find a (passive) device load impedance such that the real part of the device
+input impedance is negative at 1 Ghz.}
+
+The stability factor ($k$) provides a necessary condition for unconditional stability of a 2-port network. It enforces that the input admittance/impedance of the two-port doesn't have a negative real part.
+
+\begin{align*}
+    Y_{in} &= y_{11} - \frac{y_{12}y_{21}}{y_{22} + Y_L} \\
+    Y_{out} &= y_{22} - \frac{y_{12}y_{21}}{y_{11} + Y_S} \\
+    \text{For instability: } \Re({Y_{in}}) < 0 &\text{ and } \Re(Y_{out}) < 0
+\end{align*}
+
+We set up a S-parameter simulation in ADS to calculate the stability factor versus frequency, using the provided transistor sizing and biasing.
+
+\begin{figure}[H]
+    \minipage{0.50\textwidth}
+    \includegraphics[width=\linewidth]{partb_stability_schematic.pdf}
+    \caption{Stability Factor Testbench}
+    \endminipage\hfill
+    \minipage{0.50\textwidth}
+    \includegraphics[width=\linewidth]{partb_stability_factor_vs_frequency.pdf}
+    \caption{Stability Factor vs. Frequency}
+    \endminipage
+\end{figure}
+
+The transistor is not unconditionally stable at 1 Ghz. To find a passive load impedance that gives a negative real impedance, we can use the stability analysis (circle) feature of ADS.
+
+\begin{figure}[H]
+    \minipage{0.47\textwidth}
+    \includegraphics[width=\linewidth]{partb_stability_circle.pdf}
+    \caption{Stability Circle (not scaled to unit impedance circle)}
+    \endminipage\hfill
+    \minipage{0.47\textwidth}
+    \includegraphics[width=\linewidth]{partb_stability_circle_scaled.pdf}
+    \caption{Stability Circle (in unit impedance circle)}
+    \endminipage
+\end{figure}
+
+It can be seen that for sufficiently inductive loads, the transistor isn't stable. For instance a load of $Z_L = 50 + 1.2j$ will lead to a negative input impedance.
+\begin{figure}[H]
+    \centering \includegraphics[width=\linewidth-6cm]{partb_yin_vs_zload.pdf}
+    \caption{$Z_L = 50 + j Z_{load}$}
+\end{figure}
 
 \end{document}
