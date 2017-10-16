@@ -228,13 +228,15 @@ We can see after adding the matching networks, that SmGammas move to the origin 
     \endminipage
 \end{figure}
 
+The -3dB bandwidth is roughly 500 Mhz and the max power gain is 14 dB and the max voltage gain is 20 dB.
+
 \subsection{242A only}
 
 \subsection{Stability Analysis After Matching}
 {\color{blue} Following (h), simulate the stability factor for the circuit composed of the FET, gate resistor and the two matching networks. Compare the result to that obtained in (d).}:
 
 \begin{figure}[H]
-    \centering \includegraphics[width=\linewidth-6cm]{partj_stability_vs_frequency.pdf}
+    \centering \includegraphics[width=\linewidth-2cm]{partj_stability_vs_frequency.pdf}
 \end{figure}
 
 As expected, the stability factor doesn't change from part (d) since $K$ only depends on the two-port transistor model and any \textbf{lossy} elements placed around it.
@@ -242,4 +244,18 @@ As expected, the stability factor doesn't change from part (d) since $K$ only de
 \subsection{Bias Network}
 {\color{blue} If you have not already dont so, provide a reasonable bias network to your circuit without using any ideal dc block and dc feeds in the schematic.}
 
+We replace DC feeds with resistors or inductors and replace DC blocks with 100 pF capacitors. Here is the new schematic:
+
+\begin{figure}[H]
+    \centering \includegraphics[width=\linewidth-6cm]{partk_schematic.pdf}
+\end{figure}
+
+\subsection{Full Stability}
+{\color{blue} Stabilize the circuit at all frequencies. Introduce loss if needed, but keep the power gain at 5 Ghz from degrading more than 2dB from the max gain.}
+
+Calculating the stability factor, I find that it is already above 1 for all frequencies due to the resistor at the amplifier input to sustain the gate bias voltage. By boosting the inductor from the $V_{D}$ supply from 1 nH to 100 nH, I was able to regain the lost gain at 5 Ghz and achieve stability for all frequencies.
+
+\begin{figure}[H]
+    \centering \includegraphics[width=\linewidth-6cm]{partl_stability_and_gain.pdf}
+\end{figure}
 \end{document}
