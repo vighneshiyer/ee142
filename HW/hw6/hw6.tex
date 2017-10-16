@@ -1,6 +1,7 @@
 \input{../common.tex}
 
 \newcommand{\headertext}{EE142 Problem Set 6}
+\renewcommand{\thesubsection}{\thesection.\alph{subsection}}
 
 \title{\vspace{-0.4in}\Large \bf \headertext \vspace{-0.1in}}
 \author{Vighnesh Iyer}
@@ -110,7 +111,7 @@ Plot $k$ versus frequency}
     \endminipage
 \end{figure}
 
-We see an ideal series resistance of $274 \Omega$ and a max gain of 22.5 dB.
+We see an ideal series resistance of $418 \Omega$ and a max gain of 22.5 dB.
 
 \subsection{Drawbacks of Series Resistance}
 {\color{blue} The new device still has $k < 1$ as 1 Ghz, which is undesireable because the load and source impedances of a 5 Ghz design are usually not controlled at 1 Ghz.
@@ -118,18 +119,75 @@ Therefore, a pair of undesired source and load impedances at 1 Ghz can make the 
 Further increasing the series resistor can make $k > 1$ at 1 Ghz.
 What is the main drawback of this approach?}
 
-The main drawback is losing maximum transducer gain. As the source resistance increases, it dissipates more power and the overall power gain of the circuit is reduced.
+The main drawback is losing maximum transducer gain. As the source resistance increases, the effective transconductance of the entire device (FET + resistor) goes down and the overall power gain of the circuit is reduced.
+
+\begin{figure}[H]
+    \centering \includegraphics[width=\linewidth-6cm]{parte_rs_vs_stability_and_gain.pdf}
+    \caption{K and Max Gain versus $R_s$ at 5 Ghz}
+\end{figure}
 
 \subsection{Max Voltage Gain and Power Gain}
 {\color{blue} We will eventually make $k > 1$ at all frequencies with a better method. Let's focus on the 5 Ghz design for now. Assuming the source resistor is $50 \Omega$, what is the voltage gain ($V_{in,mixer}/V_s$) and power gain ($P_{in,mixer}/P_{avs}$) without any matching network?}
 
 We use a $50 \Omega$ source resistance and the gate resistance from part (d) to stabilize the amplifier at 5 Ghz. The load is replaced with the mixer input impedance model.
 
-To use a standard S-parameter termination, we use a parallel to series conversion.
+To use a standard S-parameter termination instead of (1000 $\Omega$ $||$ 75 fF), we use a parallel to series conversion at 5 Ghz with $R_p = 1000 \Omega$ and $X_p(\omega) = \frac{-1}{\omega C}$.
 
 \begin{align*}
-asdf
+    X_p(\omega) \rvert_{\omega = 5e9 \cdot 2 \pi} &= -424.413 \\
+    Q_p(\omega) &= \frac{R_p}{X_p} = \frac{1000}{-1 / (\omega (75 \text{ fF}))} \\
+    Q_p(\omega) \rvert_{5e9 \cdot 2 \pi} &= -2.356 \\
+    R_s &= \frac{R_p}{1 + Q_p^2} = 152.633 \\
+    X_s &= \frac{X_p}{1 + \frac{1}{Q_p^2}} = -359.633
 \end{align*}
 
+We find power gain of -2.711 dB and voltage gain of 4.729 dB. This is the schematic used:
 
+\begin{figure}[H]
+    \centering \includegraphics[width=\linewidth-6cm]{partf_schematic.pdf}
+    \caption{Schematic used to find power and voltage gain}
+\end{figure}
+
+However, when using a 75 fF cap in parallel with a 1000 Ohm termination, I get different power and voltage gain results.
+
+\subsection{Find Ideal Source/Load Impedance}
+{\color{blue} Lecture 9 introduced bi-conjugate matching and the formula to calculate the optimal source and load impedances of a device for the maximum power gain.
+What are the optimal source and load impedances of your device (FET + gate resistor) at 5 Ghz?
+Verify your calculation by the ADS function \emph{SmGamma}.}
+
+From lecture, we found:
+
+\begin{align*}
+    Y_{in} &= Y_{11} - \frac{Y_{12}Y_{21}}{Y_L + Y_{22}} = Y_S^* \\
+    Y_{out} &= Y_{22} - \frac{Y_{12}Y_{21}}{Y_S + Y_{11}} = Y_L^* \\
+    Y_S &= \frac{1}{50} = 0.02 \\
+    Y_L &= \frac{1}{152.633-359.633j} = 0.001+0.0023561939267246505j
+\end{align*}
+
+We find the Y parameters of the 2-port from ADS. Then we calculate the optimal $Y_{in,opt}$ and $Y_{out,opt}$, and the hand-calculated SmGamma values.
+
+Here is the technique:
+\begin{align*}
+    Y_{in,opt} &= conj(Y_{11} - ((Y_{12}Y_{21}) / (Y_L + Y_{22}))) \\
+    Y_{out,opt} &= conj(Y_{22} - ((Y_{12}Y_{21}) / (Y_S + Y_{11}))) \\
+    Z_{in,opt} &= \frac{1}{Y_{in,opt}} \\
+    SmGamma1 &= (Z_{in,opt} - 50) / (Z_{in,opt} + 50) \\
+    SmGamma2 &= (Z_{out,opt} - 1000) / (Z_{out,opt} + 1000.0)
+\end{align*}
+
+Here are the values:
+\begin{align*}
+    Z_{in,opt} &= (571.205191257+791.739522743j) \\
+    Z_{out,opt} &= (66.3703128933+32.7697815535j) \\
+    SmGamma1 &= (0.938661386357+0.0781773967356j) \\
+    SmGamma2 &= (-0.873751609891+0.0575807767707j)
+\end{align*}
+
+We find SmGamma from ADS:
+\begin{figure}[H]
+    \centering \includegraphics[width=\linewidth-6cm]{partg_sm_gamma.pdf}
+    \caption{SmGamma of FET+resistor with 1000 Ohm termination and 75 fF in shunt}
+\end{figure}
+
+We can see that the SmGamma values hand-calculated match up well enough with the values found by ADS.
 \end{document}
