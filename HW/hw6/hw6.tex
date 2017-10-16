@@ -190,4 +190,56 @@ We find SmGamma from ADS:
 \end{figure}
 
 We can see that the SmGamma values hand-calculated match up well enough with the values found by ADS.
+
+We can also use the equations given later in the lecture to find the optimal power match impedances:
+
+\begin{align*}
+    Y_{s,opt} = -1j \Im{Y_{11}} \frac{Y_{12}Y_{21} - 2 \Re{Y_{11}} \Re{Y_{22}} + |Y_{12}Y_{21}|(K + \sqrt{K^2-1})}{2 \Re{Y_{22}}}
+\end{align*}
+
+We get $Z_{in} = (4.709253134778841+21.648285783477746j)$ and $Z_{out} =
+(0.02063245553111879+0.035740205135909385j)$ which closely matches the ADS impedance values.
+
+\subsection{Matching Networks}
+{\color{blue} Design both the input and output matching networks (using L/C) to maximize the power/voltage gain. What are the maximum voltage gain and the maximum power gain? What is the 3-dB bandwidth?}
+
+We find the impedances for optimal matching from ADS, so we can now compute regular L networks as in the previous homework assuming we can resonante out the complex part of each load.
+
+\subsubsection{Input Match}
+We want to match from $Z_S = 50 \Omega$ to $Z_L = 235.463 - 1082.4143j \Omega$.
+
+We begin by resonating out the the load reactance with a 34.36 nH inductor in series, then design a regular L matching network with $C_p = 0.26$ pF, and $L_s = 3.06 \text{ nH}$.
+
+\subsubsection{Output Match}
+We want to match from $Z_S = 20.632+35.740$ to $Z_L = 1000 \Omega || 75 \text{ fF}$.
+
+We begin by resonating out the load reactance with a 13.51 nH inductor in shunt, then follow up with a $L_p = 4.66$ nH, and $C_s = 0.222$ pF. We make the source impedance purely real with a series 1.145 nH inductor.
+
+We can see after adding the matching networks, that SmGammas move to the origin of the circle, and the power/voltage gains are improved and positive.
+
+\begin{figure}[H]
+    \minipage{0.50\textwidth}
+    \includegraphics[width=\linewidth]{parth_sm_gamma.pdf}
+    \caption{SmGamma 1 and 2}
+    \endminipage\hfill
+    \minipage{0.50\textwidth}
+    \includegraphics[width=\linewidth]{parth_power_and_voltage_gain.pdf}
+    \caption{Power and Voltage Gain vs Frequency}
+    \endminipage
+\end{figure}
+
+\subsection{242A only}
+
+\subsection{Stability Analysis After Matching}
+{\color{blue} Following (h), simulate the stability factor for the circuit composed of the FET, gate resistor and the two matching networks. Compare the result to that obtained in (d).}:
+
+\begin{figure}[H]
+    \centering \includegraphics[width=\linewidth-6cm]{partj_stability_vs_frequency.pdf}
+\end{figure}
+
+As expected, the stability factor doesn't change from part (d) since $K$ only depends on the two-port transistor model and any \textbf{lossy} elements placed around it.
+
+\subsection{Bias Network}
+{\color{blue} If you have not already dont so, provide a reasonable bias network to your circuit without using any ideal dc block and dc feeds in the schematic.}
+
 \end{document}
