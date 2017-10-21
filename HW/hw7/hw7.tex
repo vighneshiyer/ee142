@@ -1,0 +1,42 @@
+\input{../common.tex}
+
+\newcommand{\headertext}{EE142 Problem Set 7}
+\renewcommand{\thesubsection}{\thesection.\alph{subsection}}
+
+\title{\vspace{-0.4in}\Large \bf \headertext \vspace{-0.1in}}
+\author{Vighnesh Iyer}
+
+\date{\today}
+\maketitle
+
+\markboth{\headertext}{\headertext}
+\thispagestyle{empty}
+
+\section{Noise Figure of Cascade Blocks and Lossy Transmission Line}
+\begin{enumerate}[label=(\alph*)]
+    \begin{figure}[H]
+        \centering \includegraphics[width=\textwidth-2cm]{problem1a_schematic.png}
+    \end{figure}
+
+    \item {\color{blue}For the above two cascade circuits, calculate the power gains and noise figures for each stage (i.e. $S_{21,1}$, $S_{21,2}$, $NF_1$, $NF_2$) and the two stage circuits ($S_{21,total}$, $NF_{total}$).
+    The resistors are assumed to be noiseless.}
+
+    \subsection{Cascade 1}
+
+    For the first cascase's stage 1, we begin by input referring the noise sources and collapsing the voltage and current noise into $\overline{v_{eq}^2}$.
+    From lecture:
+
+    \begin{align*}
+        \overline{v_{eq}^2} &= \overline{v_n^2} + \overline{i_n^2} R_s^2 \\
+        F &= 1 + \frac{N_{amp,i}}{N_s} = 1 + \frac{\overline{v_{eq}^2}}{\overline{v_s^2}}
+    \end{align*}
+
+    Assume we are calculating noise figure in a $50 \Omega$ environment, $R_s = 50 \Omega$ and $\overline{v_s^2} = 4 kT R_s$.
+    We assume that all noise sources represented are defined as \emph{spot noise}.
+
+    \begin{align*}
+        F_1 = 1 + \frac{\overline{v_{eq,1}^2}}{\overline{v_s^2}} = \frac{4kT\cdot 20 + 4kT \cdot 2 \cdot 50^2}{4kT \cdot R_s}
+    \end{align*}
+
+\end{enumerate}
+\end{document}
