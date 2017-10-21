@@ -27,16 +27,57 @@
     From lecture:
 
     \begin{align*}
-        \overline{v_{eq}^2} &= \overline{v_n^2} + \overline{i_n^2} R_s^2 \\
+        \overline{v_{eq}^2} &= \overline{v_n^2} + \overline{i_n^2} R_s^2 + 2 \cdot R_s \cdot \overline{v_n i_n} \\
         F &= 1 + \frac{N_{amp,i}}{N_s} = 1 + \frac{\overline{v_{eq}^2}}{\overline{v_s^2}}
     \end{align*}
 
     Assume we are calculating noise figure in a $50 \Omega$ environment, $R_s = 50 \Omega$ and $\overline{v_s^2} = 4 kT R_s$.
     We assume that all noise sources represented are defined as \emph{spot noise}.
+    Furthermore, we \emph{don't} assume that $\overline{v_n^2}$ and $\overline{i_n^2}$ are uncorrelated, and include covariance terms when needed.
 
     \begin{align*}
-        F_1 = 1 + \frac{\overline{v_{eq,1}^2}}{\overline{v_s^2}} = \frac{4kT\cdot 20 + 4kT \cdot 2 \cdot 50^2}{4kT \cdot R_s}
+        i_{n,1} &= v_{n,1} / 10 \rightarrow \overline{i_{n,1}^2} = \overline{v_{n,1}^2} / 100 \\
+        F_1 &= 1 + \frac{\overline{v_{eq,1}^2}}{\overline{v_s^2}} = \frac{4kT\cdot 20 + 4kT \cdot 0.2 \cdot 50^2}{4kT \cdot R_s} = 10.4 \\
+        NF_1 &= 10 \cdot \log(F_1) = 23.42 \text{ dB}
     \end{align*}
 
+    \item {\color{blue} Is the formula $NF_{total} = NF_1 + \frac{NF_2-1}{|S_{21,1}^2|}$ applicable?}
+
+    \item {\color{blue} For a lossy transmission line illustrated below, derive its noise figure.}
+
+    \begin{figure}[H]
+        \centering \includegraphics[width=\textwidth-8cm]{problem1c_schematic.png}
+    \end{figure}
+
+    Starting with the definition of $F$:
+
+    \begin{align*}
+        F &= \frac{SNR_i}{SNR_o} = \frac{P_{sig}/\overline{v_{n,s}^2}}{P_{sig} \cdot \text{ loss} / \overline{v_{n,s}^2} \cdot \text{ loss}^2} \\
+        F &= \frac{1}{\text{loss}}
+    \end{align*}
+
+    where 'loss' represents the power loss of the transmission line in steady state from input to output. This is simple to compute, assuming that the line is driven with a source impedance of $Z_0$ with a mean squared noise voltage of $4 kT Z_0$ and terminated with a noiseless load of $Z_0$.
+
+    \begin{align*}
+        \text{Power @ Load} &= V_+ e^{-\gamma l} \cdot \frac{1}{Z_0} e^{-\gamma l} V_+ \rvert_{l=0} = \frac{V_+^2}{Z_0} \\
+        \text{Power @ Source} &= V_+ e^{-\gamma l} \cdot \frac{1}{Z_0} e^{-\gamma l} V_+ \rvert_{l=-l} = \frac{V_+^2 e^{2 \gamma l}}{Z_0} \\
+        \text{Power @ Load / Power @ Source} &= e^{-2 \gamma l} \\
+        F &= \frac{1}{e^{-2 \gamma l}} = e^{2 \gamma l}
+    \end{align*}
+
+    We know the propagation constant $\gamma = \alpha + j \beta$. Because the velocity of the line is at the speed of light, the imaginary term goes to zero and $\gamma$ is dominated by $\alpha$.
+
+    $$ F = e^{2 \alpha_0 L} $$
+
+    The noise figure seems frequency independent, but any real line has $\beta = \frac{2\pi}{\lambda}$.
+
+    \item {\color{blue} If the tline is used to connect the above two cascade circuits to the $50\Omega$ soucrce (e.g. antenna), what will be the new total noise figures}
+\end{enumerate}
+
+\section{Matching for Low Noise Versus Matching for High Gain}
+\emph{In this problem, your answers should be functions of frequency.}
+
+\begin{enumerate}[label=(\alph*)]
+    \item {\color{blue} For a simplified common-source model shown below (with noise sources drawn) derive the input referred noise voltage and noise current.}
 \end{enumerate}
 \end{document}
