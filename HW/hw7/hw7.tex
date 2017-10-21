@@ -21,14 +21,26 @@
     \item {\color{blue}For the above two cascade circuits, calculate the power gains and noise figures for each stage (i.e. $S_{21,1}$, $S_{21,2}$, $NF_1$, $NF_2$) and the two stage circuits ($S_{21,total}$, $NF_{total}$).
     The resistors are assumed to be noiseless.}
 
-    \subsection{Cascade 1}
+    \subsection{Cascade 1 - S}
+    \begin{align*}
+        S_{21,1} &= 5 \\
+        S_{21,2} &= 10 \\
+        S_{21,total} &= 50
+    \end{align*}
+
+    We assumed $Z_0$ is $50 \Omega$. We drive the input with a 50 $\Omega$ AC source and terminate the output with a $50 \Omega$ load.
+    These values represent voltage and power gain due to equal input/output impedances.
+
+    \subsection{Cascade 1 - Noise}
 
     For the first cascase's stage 1, we begin by input referring the noise sources and collapsing the voltage and current noise into $\overline{v_{eq}^2}$.
     From lecture:
 
     \begin{align*}
-        \overline{v_{eq}^2} &= \overline{v_n^2} + \overline{i_n^2} R_s^2 + 2 \cdot R_s \cdot \overline{v_n i_n} \\
-        F &= 1 + \frac{N_{amp,i}}{N_s} = 1 + \frac{\overline{v_{eq}^2}}{\overline{v_s^2}}
+        \overline{v_{eq}^2} &= \overline{v_n^2} + \overline{i_n^2} R_s^2 \text{ for uncorrelated noise} \\
+        \overline{v_{eq}^2} &= \overline{v_n^2} |1 + Y_c Z_s|^2 + |Z_s|^2 \overline{i_u^2} \text{ for correlated noise} \\
+        \text{ where } i_c &= Y_c V_n \text{ and } i_n = i_c + i_u \\
+        \text{ then } F &= 1 + \frac{N_{amp,i}}{N_s} = 1 + \frac{\overline{v_{eq}^2}}{\overline{v_s^2}}
     \end{align*}
 
     Assume we are calculating noise figure in a $50 \Omega$ environment, $R_s = 50 \Omega$ and $\overline{v_s^2} = 4 kT R_s$.
@@ -36,12 +48,35 @@
     Furthermore, we \emph{don't} assume that $\overline{v_n^2}$ and $\overline{i_n^2}$ are uncorrelated, and include covariance terms when needed.
 
     \begin{align*}
-        i_{n,1} &= v_{n,1} / 10 \rightarrow \overline{i_{n,1}^2} = \overline{v_{n,1}^2} / 100 \\
-        F_1 &= 1 + \frac{\overline{v_{eq,1}^2}}{\overline{v_s^2}} = \frac{4kT\cdot 20 + 4kT \cdot 0.2 \cdot 50^2}{4kT \cdot R_s} = 10.4 \\
-        NF_1 &= 10 \cdot \log(F_1) = 23.42 \text{ dB}
+        F_1 &= 1 + \frac{\overline{v_{eq,1}^2}}{\overline{v_s^2}} = 1 + \frac{4kT\cdot 20 |1 + 0.1 \cdot 50|^2}{4kT \cdot 50} = 15.4 \\
+        NF_1 &= 10 \cdot \log(F_1) = 11.88 \text{ dB} \\
+        F_2 &= 1 + \frac{\overline{v_{eq,1}^2}}{\overline{v_s^2}} = 1 + \frac{4kT \cdot 20 + 4kT \cdot \frac{1}{100} \cdot 50^2}{4kT \cdot 50} = 1.9 \\
+        NF_2 &= 2.79 \text{ dB} \\
+        F_{tot} &= F_1 + \frac{F_2 - 1}{G_1} = 15.4 + \frac{1.9-1}{5^2} = 15.436 \\
+        NF_{tot} &= 11.885 \text{ dB}
     \end{align*}
 
+    where we recognize that all current noise is correlated to the voltage noise. Furthermore, we can use Friis' cascade noise formula due to internally matched impedances.
+
+    \subsection{Cascase 2 -S}
+    \begin{align*}
+        S_{21,1} &= \frac{V_s \frac{70}{70 + 50} \cdot 10 \cdot \frac{50}{50 + 70}}{V_s \frac{70}{70+50}} = 4.147 \\
+        S_{21,2} &= \frac{V_s \frac{70}{70 + 50} \cdot 20 \cdot \frac{1}{2}}{V_s \frac{70}{70+50}} = 10 \\
+        S_{21,total} &= \frac{V_s \frac{70}{70+50} \cdot 10 \cdot \frac{1}{2} \cdot 20 \frac{1}{2}}{V_s \frac{70}{70+50}} = 50
+    \end{align*}
+
+    \subsection{Cascase 2 - Noise}
+    \begin{align*}
+        F_1 &= 15.4 \text{ same as cascase 1} \\
+        F_2 &= 1.9 \text{ same as cascase 1} \\
+        F_{tot} &= 15.436
+    \end{align*}
+
+    The noise figure of each stage doesn't change because input referring the noise sources doesn't depend on the stages' terminations. The total noise figure also doesn't change since input referring the noise from the second stage still sees a pure gain by 10.
+
     \item {\color{blue} Is the formula $NF_{total} = NF_1 + \frac{NF_2-1}{|S_{21,1}^2|}$ applicable?}
+
+    This formula is definetely applicable if each stage is impedance matched internally and to the external source resistance and load impedance used in the measurement; otherwise it doesn't apply generally.
 
     \item {\color{blue} For a lossy transmission line illustrated below, derive its noise figure.}
 
