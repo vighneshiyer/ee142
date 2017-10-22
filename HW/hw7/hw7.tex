@@ -212,6 +212,21 @@
 
     We can answer this question in terms of $R_{s,opt}$.
 
-    We want to match to $R_{s,opt}^*$ so $X = -\Im{R_{s,opt}^*}$ and $N$ the turns ratio $ = \Re{R_{s,opt}} / 50.0$.
+    We want to match to $R_{s,opt}^*$ so $X = -\Im{R_{s,opt}^*}$.
+
+    The impedance looking from the amplifier towards the generator should be $\Re{R_{s,opt}^*}$.
+
+    The turns ratio $\frac{N_s}{N_p} = \sqrt{\frac{\Re{R_{s,opt}}}{50.0}}$.
+
+    \item {\color{blue} Calculate the $S_{11}$ and the achieved transconductance for your low-noise design.}
+    \begin{align*}
+        S_{11} &= \frac{V_1^-}{V_1^+} \rvert_{V_2^+ = 0} = \Gamma_S \\
+        &= \frac{R_{s,opt} - 50}{R_{s,opt} + 50}
+    \end{align*}
+
+    \begin{align*}
+        G_m &= \frac{i_o}{V_s} = \frac{g_m V_{gs}}{V_s} = \frac{g_m \Gamma_S V_s}{V_s} \\
+        &= g_m \Gamma_S
+    \end{align*}
 \end{enumerate}
 \end{document}
