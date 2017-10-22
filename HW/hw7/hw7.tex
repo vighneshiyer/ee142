@@ -173,8 +173,45 @@
 
     Sympy was used to find the equivalent output noise expression (too tedious by hand).
 
-
     \item {\color{blue} Following part (a), what is the source impedance that optimizes the noise figure? What is the lowest noise figure?}
 
+    We first decompose $\overline{v_n^2}$ into correlated and uncorrelated parts, and rederive $\overline{v_{eq}^2}$.
+    \begin{align*}
+        v_n &= v_c + v_u \\
+        v_c &= i_n \cdot Z_c \\
+        v_{eq} &= i_n \cdot Z_s + i_n \cdot Z_c + V_u = i_n(Z_s + Z_c) + v_u \\
+        \overline{v_{eq}^2} &= \overline{i_n^2} |Z_s + Z_c|^2 + \overline{v_u^2}
+    \end{align*}
+
+    By expanding $\overline{v_n^2}$ it can be written as:
+    \begin{align*}
+        \overline{v_n^2} = \overline{i_n^2} \cdot R_{g}^{2} - C_{gs} R_{g}^{2} T \omega^{2} k + \frac{16 i C_{gs} R_{g}}{3 g_{m}} T \omega k + 2 i R_{g} T \omega k + \frac{8 T k}{3 g_{m}} + \frac{T k}{C_{gs}}
+    \end{align*}
+
+    We can immediately identify $Z_c = R_g$, and setting $Z_s = R_s$, we can find $\overline{v_{eq}^2}$ symbolically.
+    The expression is complicated... not sure if I'm doing something wrong or just not chopping off 'small' terms.
+
+    \begin{align*}
+        \overline{v_{eq}^2} = - \frac{8 C_{gs}^{2} T k}{3 g_{m}} \omega^{2} \left(R_{g} + R_{s}\right)^{2} - C_{gs} R_{g}^{2} T \omega^{2} k + \frac{16 i C_{gs} R_{g}}{3 g_{m}} T \omega k + 2 i R_{g} T \omega k + \frac{8 T k}{3 g_{m}} + \frac{T k}{C_{gs}}
+    \end{align*}
+
+    Now we can use the standard expression for noise figure:
+    \begin{align*}
+        F &= 1 + \frac{\overline{v_{eq}^2}}{\overline{v_s^2}} \\
+        &= 1 + \frac{1}{4 R_{s} T k} \left(- \frac{8 C_{gs}^{2} T k}{3 g_{m}} \omega^{2} \left(R_{g} + R_{s}\right)^{2} - C_{gs} R_{g}^{2} T \omega^{2} k + \frac{16 i C_{gs} R_{g}}{3 g_{m}} T \omega k + 2 i R_{g} T \omega k + \frac{8 T k}{3 g_{m}} + \frac{T k}{C_{gs}}\right)
+    \end{align*}
+
+    Finally, to minimize noise figure, we differentiate it wrt $R_s$ and set it to 0. Solve symbolically (again complicated):
+    \begin{align*}
+        R_{s,opt} = \sqrt{R_{g}^{2} + \frac{3 R_{g}^{2} g_{m}}{8 C_{gs}} - \frac{2 i R_{g}}{C_{gs} \omega} - \frac{3 i R_{g} g_{m}}{4 C_{gs}^{2} \omega} - \frac{1}{C_{gs}^{2} \omega^{2}} - \frac{3 g_{m}}{8 C_{gs}^{3} \omega^{2}}}
+    \end{align*}
+
+    The minimum noise figure is way too complicated (substitute $R_{s,opt}$ for $R_s$ in $F$). I won't bother including it here.
+
+    \item {\color{blue} Design an input matching network for a source impedance of $50\Omega$ to achieve the lowest noise figure. Use an ideal transformer with arbitrary turns ratio and a series reactance.}
+
+    We can answer this question in terms of $R_{s,opt}$.
+
+    We want to match to $R_{s,opt}^*$ so $X = -\Im{R_{s,opt}^*}$ and $N$ the turns ratio $ = \Re{R_{s,opt}} / 50.0$.
 \end{enumerate}
 \end{document}
