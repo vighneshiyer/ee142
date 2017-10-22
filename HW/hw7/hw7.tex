@@ -228,5 +228,27 @@
         G_m &= \frac{i_o}{V_s} = \frac{g_m V_{gs}}{V_s} = \frac{g_m \Gamma_S V_s}{V_s} \\
         &= g_m \Gamma_S
     \end{align*}
+
+    \item {\color{blue} Redesign the input matching network to achieve the maximum transconductance. Calculate the new transconductance and noise figure.}
+
+    The new input matching network will have to remove all input reflections.
+
+    $X = \frac{1}{\omega C_{gs}}$ and $\frac{N_s}{N_p} = \sqrt{\frac{R_g}{50.0}}$.
+
+    The new noise figure will use $R_s = (R_g + \frac{1}{j \omega C_{gs}})^*$.
+
+    \begin{multline}
+        F_{gm,max} = 1 + \frac{1}{4 T k \left(R_{g} - \frac{i}{C_{gs} \omega}\right)} \left(- \frac{8 C_{gs}^{2} T k}{3 g_{m}} \omega^{2} \left(2 R_{g} - \frac{i}{C_{gs} \omega}\right)^{2} - C_{gs} R_{g}^{2} T \omega^{2} k + \frac{16 i C_{gs} R_{g}}{3 g_{m}} T \omega k + 2 i R_{g} T \omega k + \frac{8 T k}{3 g_{m}} + \frac{T k}{C_{gs}}\right)
+    \end{multline}
+
+    \item {\color{blue} For a special case with frequency of 1 Ghz, $g_m$ of 0.01, $C_{gs}$ of 100 fF, and $R_g$ of 20 $\Omega$, verify the calculated results for the two designs in ADS}
+
+    I found that the results I derived in this problem gave worthless results for the ideal $R_s$. I instead just ran a simple simulation and got some useful numbers.
+
+    \begin{figure}[H]
+        \centering \includegraphics[width=\textwidth-4cm]{problem2f.pdf}
+    \end{figure}
+
+    It can be seen the power gain is maximized if $R_s = 290 \Omega$ and the noise figure is minimized when $R_s = 1.73 k\Omega$.
 \end{enumerate}
 \end{document}
