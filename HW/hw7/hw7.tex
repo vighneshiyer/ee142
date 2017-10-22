@@ -67,8 +67,8 @@
 
     \subsection{Cascase 2 - Noise}
     \begin{align*}
-        F_1 &= 15.4 \text{ same as cascase 1} \\
-        F_2 &= 1.9 \text{ same as cascase 1} \\
+        F_1 &= 15.4 \text{ same as cascade 1} \\
+        F_2 &= 1.9 \text{ same as cascade 1} \\
         F_{tot} &= 15.436
     \end{align*}
 
@@ -106,7 +106,15 @@
 
     The noise figure seems frequency independent, but any real line has $\beta = \frac{2\pi}{\lambda}$.
 
-    \item {\color{blue} If the tline is used to connect the above two cascade circuits to the $50\Omega$ soucrce (e.g. antenna), what will be the new total noise figures}
+    \item {\color{blue} If the tline is used to connect the above two cascade circuits to the $50\Omega$ soucrce (e.g. antenna), what will be the new total noise figures.}
+
+    Both noise figures are the same at:
+
+    \begin{align*}
+        F_{tot} = 15.436 + \frac{e^{2 \alpha_0 L} - 1}{|S_{21,tot}|^2}
+    \end{align*}
+
+    We can use Friis's cascade formula since the $F_{tot}$ of each cascade is the same and $S_{21,tot}$ are also the same, and furthermore the antenna is matched to the transmission line.
 \end{enumerate}
 
 \section{Matching for Low Noise Versus Matching for High Gain}
@@ -114,5 +122,59 @@
 
 \begin{enumerate}[label=(\alph*)]
     \item {\color{blue} For a simplified common-source model shown below (with noise sources drawn) derive the input referred noise voltage and noise current.}
+    \begin{figure}[H]
+        \centering \includegraphics[width=\textwidth-2cm]{problem2a_schematic.png}
+    \end{figure}
+
+    Let's first analyze the input RC network to derive the result from lecture. Take the mean squared voltage across the capacitor as $\overline{v_c^2}$.
+
+    \begin{align*}
+        \overline{v_c^2} &= \int_{- \infty}^{+ \infty} S(f) |H(f)|^2 df \\
+        H(f) &= \frac{1}{1 + RC j \cdot 2 \pi f} \\
+        \overline{v_c^2} &= \int^{+\infty}_{-\infty} 2kTR \cdot \frac{1}{(RC 2 \pi f)^2 + 1} df \\
+        &= 2kTR \cdot \int^{+\infty}_{-\infty} \frac{1}{(RC 2 \pi f)^2 + 1} df \\
+        &= 2kTR \cdot (\frac{\tan^{-1}(RC 2 \pi f)}{RC} \rvert_{- \infty}^{+ \infty}) \\
+        &= 2kTR \cdot \frac{1}{2 RC} \\
+        &= \frac{kT}{C}
+    \end{align*}
+
+    Denote equivalent input current noise as $\overline{i_{n}^2}$ and equivalent input voltage noise as $\overline{v_n^2}$.
+
+    To find equivalent input current noise, first we open the input and measure the output noise.
+    \begin{align*}
+        \overline{i_{o}^2} &= 8kT g_m / 3
+    \end{align*}
+
+    Then remove the noise sources and add a current noise source at the input and again measure the output noise.
+    \begin{align*}
+        \overline{i_{o}^2} &= \overline{i_n^2} \cdot Z_{gs}^2 \cdot g_m^2
+    \end{align*}
+
+    Equating these output noises we find equivalent input current noise:
+    \begin{align*}
+        \overline{i_n^2} &= \frac{8kT g_m}{3} \cdot \frac{1}{g_m^2 Z_{gs}^2} = \frac{8kT}{3 g_m} \cdot (\omega C_{gs})^2
+    \end{align*}
+
+    To find equivalent input voltage noise, first we short the input and measure the output noise.
+    \begin{align*}
+        \overline{i_{o}^2} &= \frac{kT}{C_{gs}} \cdot g_m^2 + 8kT g_m / 3
+    \end{align*}
+
+    The remove the noise sources and add a voltage noise source at the input, measure output noise.
+    \begin{align*}
+        \overline{i_o^2} &= \overline{v_n^2} \cdot (\frac{Z_{gs}}{Z_{gs} + R_g})^2 \cdot g_m^2
+    \end{align*}
+
+    Equating output noises:
+    \begin{align*}
+        \overline{v_n^2} &= \frac{\frac{kT}{C_{gs}} \cdot g_m^2 + 8kT g_m / 3}{(\frac{Z_{gs}}{Z_{gs} + R_g})^2 \cdot g_m^2} \\
+        &= \frac{T k}{3 C_{gs} g_{m}} \left(8 C_{gs} + 3 g_{m}\right) \left(j C_{gs} R_{g} \omega + 1\right)^{2}
+    \end{align*}
+
+    Sympy was used to find the equivalent output noise expression (too tedious by hand).
+
+
+    \item {\color{blue} Following part (a), what is the source impedance that optimizes the noise figure? What is the lowest noise figure?}
+
 \end{enumerate}
 \end{document}
