@@ -80,6 +80,48 @@ The required signal to distortion ratio at the front-end output is 9dB.}
 \begin{enumerate}[label=(\alph*)]
     \item {\color{blue} For the above amplifier, derive a power series to express the small-signal output voltage $v_{out}$ as a function of the small-signal input voltage $v_{in}$. Assume the transistors are long-channel devices.}
 
+    We first derive the results for a single stage in general:
+    \begin{align*}
+        I_D &= \frac{1}{2} \mu_n C_{ox} \frac{W}{L} (V_{gs} - V_{th})^2 \\
+        I_Q + i_{out} &= \frac{1}{2} \mu_n C_{ox} \frac{W}{L} (V_{GSQ} + v_{in} - V_{th})^2 \\
+        I_Q + i_{out} &= 0.5 \mu_n C_{ox} W/L (V_{GSQ} - V_{th})^2 + \mu_n C_{ox} W/L (V_{GSQ} - V_{th})v_{in} + 0.5 \mu_n C_{ox} W/L \cdot v_{in}^2 \\
+        i_{out} &= \mu_n C_{ox} W/L (V_{GSQ} - V_{th})v_{in} + 0.5 \mu_n C_{ox} W/L \cdot v_{in}^2 \\
+        v_{out} &= i_{out} \cdot R
+    \end{align*}
+
+    Now consider the cascade:
+    \begin{align*}
+        v_{mid} &= (0.2 v_{in} + 0.5 v_{in}^2) \cdot 100 = 20 v_{in} + 50 v_{in}^2 \\
+        v_{out} &= (0.6 v_{mid} + 1 v_{mid}^2) \cdot 50 \\
+        v_{out} &= 600 v_{in} + 21500 v_{in}^2 + 100000 v_{in}^3 + 125000 v_{in}^4
+    \end{align*}
+
+    \item {\color{blue} Calculate IIP3 for the first stage ($v_{in}$ to $v_{mid}$), the second stage ($v_{mid}$ to $v_{out}$), and the overall cascade two-stage amplifier.}
+
+    \begin{align*}
+        VIIP3_A &= \sqrt{4/3 |a_1/a_3|} = \infty \\
+        VIIP3_B &= \infty \\
+        VIIP3_{cascade} &= 0.089 \text{ V} \rightarrow -11 \text{ dBm}
+    \end{align*}
+
+    \item {\color{blue} Find IIP2 for the first stage, the second stage, and the cascade two-stage amplifier.}
+
+    \begin{align*}
+        VIIP2_A &= \frac{a_1}{a_2} = 0.4 \text{ V} \rightarrow 2.04 \text{ dBm} \\
+        VIIP2_B &= 0.6 \text{ V} \rightarrow 5.56 \text{ dBm} \\
+        VIIP2_{cascade} &= 0.0279 \text{ V} \rightarrow -21 \text{ dBm} \\
+    \end{align*}
+
+    \item {\color{blue} Apply the cascade IIP3 and IIP2 formula introduced in the lecture. Explain if the results are different from that obtained via your analysis in part (b) and (c)}
+
+    The cascade IIP2 formula yields the same result as derived explicitly, but the cascade IIP3 formula breaks down with infinite values and doesn't give the same answer as found in part (b).
+
+    \item {\color{blue} Calculate HD2 and HD3 of this two-stage amplifier.}
+
+    \begin{align*}
+        HD_2 &= \frac{1}{2} \frac{a_2}{a_1} S_{in} = 18 \\
+        HD_3 &= \frac{1}{4} \frac{a_3}{a_1} S_{in}^2 = 41.7
+    \end{align*}
 
 \end{enumerate}
 
