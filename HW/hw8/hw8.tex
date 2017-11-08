@@ -1,0 +1,86 @@
+\input{../common.tex}
+
+\newcommand{\headertext}{EE142 Problem Set 8}
+\renewcommand{\thesubsection}{\thesection.\alph{subsection}}
+
+\title{\vspace{-0.4in}\Large \bf \headertext \vspace{-0.1in}}
+\author{Vighnesh Iyer}
+
+\date{\today}
+\maketitle
+
+\markboth{\headertext}{\headertext}
+\thispagestyle{empty}
+
+\section{System Analysis}
+{\color{blue}A wireless receiver front-end is shown below:}
+\begin{figure}[H]
+    \centering \includegraphics[width=\textwidth-8cm]{problem1_schematic1.jpg}
+\end{figure}
+
+{\color{blue}We would like to receive the channel at 1800MHz, while we have additional chanels at 900MHz, 1805MHz, and 1810MHz.}
+\begin{figure}[H]
+    \centering \includegraphics[width=\textwidth-5cm]{problem1_schematic2.jpg}
+\end{figure}
+
+{\color{blue}The minimum detectable signal at 1800MHz is -100dBm.
+The required signal to distortion ratio at the front-end output is 9dB.}
+
+\begin{enumerate}[label=(\alph*)]
+    \item {\color{blue}If the signal power at the 1810MHz channel is -33dBm, what is the maximum allowed power at the 1805MHz channel?}
+
+    We can find the cascaded IIP3 of the front-end:
+    \begin{align*}
+        \frac{1}{IIP3^2} = \frac{1}{IIP3_A^2} + \frac{a_1^2}{IIP3_B^2}
+    \end{align*}
+
+    where the $IIP3$ terms in the above formula are voltages or currents.
+
+    Here are some useful equations to convert power to voltage, and convert power gain to voltage gain:
+    \begin{align*}
+        \text{Power Gain in dB} &= 10 \log_{10}(\text{Power Gain in Linear Units}) \\
+        \text{Power Gain in Linear Units} &= 10^{\text{Power Gain in dB} / 10} \\
+        \text{Voltage Gain} &= \sqrt{\text{Power Gain in Linear Units}} \text{ assuming same } R_{in}, R_{out} \\
+        \text{Power in dBm} &= 10 \log_{10}(\frac{\text{Power in Watts}}{10^{-3}}) \\
+        \text{Voltage Induced} &= \sqrt{10^{-3} \cdot 10^{\text{Power in dBm}/10} \cdot 2R} \\
+        \text{Power Delivered in dBm} &= 10 \cdot \log_{10}(\frac{V^2}{2R} / 10^{-3})
+    \end{align*}
+
+    We will assume operation in a $50\Omega$ environment.
+    \begin{align*}
+        IIP3_A &= 50 \text{ dBm} \rightarrow VIIP3_A = 100 \text{ V} \\
+        IIP3_B &= 10 \text{ dBm} \rightarrow VIIP3_B = 1 \text{ V} \\
+        a_1 &= 0.8912 \text{ V/V} \\
+        VIIP_3 &= 1.1219 \text{ V} \\
+        IIP_3 &= 11 \text{ dBm}
+    \end{align*}
+
+    As expected, the second stage's IIP3 dominates the cascaded IIP3.
+    The power present at 1800MHz is caused by the intermodulation products of 1805MHz and 1810MHz:
+    \begin{align*}
+        V_{out,1800} = \frac{3 a_3}{4} A_{1805}^2 \cdot A_{1810}
+    \end{align*}
+
+    where $A_{x}$ is the voltage at $x$ MHz. We can find $a_3$ from IIP3:
+    \begin{align*}
+        IIP3 &= \sqrt{\frac{4}{3} \frac{|a_1|}{|a_3|}} \\
+        a_3 &= 0.944 \\
+        V_{out,1800} \leq V(-109 dBm) &\rightarrow P_{1805} \leq -26.5 \text{ dBm}
+    \end{align*}
+
+    \item {\color{blue}What is the required spec for the amplifier IIP2 if the signal power at the 900MHz channel can be as high as -30dBm?}
+\end{enumerate}
+
+\section{Distortion Analysis}
+{\color{blue} In this problem you will do distortion analysis for a frequency-independent amplifier.}
+\begin{figure}[H]
+    \centering \includegraphics[width=\textwidth-5cm]{problem2_schematic.jpg}
+\end{figure}
+
+\begin{enumerate}[label=(\alph*)]
+    \item {\color{blue} For the above amplifier, derive a power series to express the small-signal output voltage $v_{out}$ as a function of the small-signal input voltage $v_{in}$. Assume the transistors are long-channel devices.}
+
+
+\end{enumerate}
+
+\end{document}
