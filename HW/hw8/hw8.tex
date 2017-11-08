@@ -123,6 +123,23 @@ The required signal to distortion ratio at the front-end output is 9dB.}
         HD_3 &= \frac{1}{4} \frac{a_3}{a_1} S_{in}^2 = 41.7
     \end{align*}
 
+    \item {\color{blue} Use Harmonic Balance in ADS to simulate IIP2, IIP3, HD2, HD3 of this two-stage amplifier.}
+
+    This is the setup in ADS:
+    \begin{figure}[H]
+        \centering \includegraphics[width=\textwidth]{problem2_ads_schematic.pdf}
+    \end{figure}
+
+    We find from simulation that $a_1 = 600$, $a_2 = 18000$, and $a_3 = 100000$, which matches with the results derived by hand.
+    From here, the IIP and HD numbers must also be the same.
 \end{enumerate}
+
+\section{Resonant Distortion Analysis}
+{\color{blue} To achieve a higher output voltage swing, the two load resistors in the previous problem are replaced with 2 LC tanks, as illustrated.
+Now perform distortion analysis for a tuned amplifier.
+Keep in mind that in the passband of the amplifier (resonance), the memoryless assumption is valid.}
+\begin{figure}[H]
+    \centering \includegraphics[width=\textwidth-5cm]{problem3_schematic.jpg}
+\end{figure}
 
 \end{document}
