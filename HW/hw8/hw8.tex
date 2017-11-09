@@ -141,5 +141,60 @@ Keep in mind that in the passband of the amplifier (resonance), the memoryless a
 \begin{figure}[H]
     \centering \includegraphics[width=\textwidth-5cm]{problem3_schematic.jpg}
 \end{figure}
+\begin{enumerate}[label=(\alph*)]
+    \item {\color{blue} Under a two-tone excitation at 1.0 and 1.05 Ghz, with each having zero-to-peak voltage of 1mV, estimate the voltage components at 0.05, 0.95, 1, 1.05, 1.10, 2.0, and 3.0 Ghz at both $v_{mid}$ and $v_{out}$.}
+
+    The characteristics of the transfer function are the same as in the previous problem, with the exception of the filtering going on, at $v_{mid}$ and the load resistance, which is replaced by the resistance of the inductor at resonance as defined by its component Q.
+
+    The filtering that occurs at $v_{mid}$ only leaves behind frequencies near 1 GHz.
+    We model what's going on as a memoryless non-linearity followed by a linear filter (which in hand calculation just kills everything away from 1GHz).
+    The effective load resistance at resonance is determined by the $Q$ of the inductor.
+
+    \begin{align*}
+        Q_L = \frac{X_L}{R} = \frac{j \omega L}{R} = 20 \rightarrow R \rvert_{\omega = 1GHz} &= 1.571 \Omega \\
+        \text{Series to Parallel Conv } \rightarrow R_p &= 630 \Omega
+    \end{align*}
+
+    Derive the full form of $v_{mid}$ for a 2-tone input on $v_{in}$ with voltage $A$:
+    \begin{align*}
+        v_{mid} = 2 A^{2} R a_{2} \cos{\left (\omega_1 t \right )} \cos{\left (\omega_2 t \right )} + \frac{R a_{2}}{2} A^{2} \cos{\left (2 \omega_1 t \right )} + \frac{R a_{2}}{2} A^{2} \cos{\left (2 \omega_2 t \right )} \\ + A^{2} R a_{2} + A R a_{1} \cos{\left (\omega_1 t \right )} + A R a_{1} \cos{\left (\omega_2 t \right )}
+    \end{align*}
+
+    We can immediately spot terms to throw away. The only terms to keep involve only $\omega_1$ and $\omega_2$. Everything else
+        lies way beyond the 'passband' of the LC tank.
+    \begin{align*}
+        v_{mid,filtered} = A R a_{1} (\cos{\left (\omega_1 t \right )} + \cos{\left (\omega_2 t \right )}) \\
+        v_{out} = A R^{2} a_{1} b_{1} \cos{\left (\omega_1 t \right )} + A R^{2} a_{1} b_{1} \cos{\left (\omega_2 t \right )}
+    \end{align*}
+
+    By the same token, we can throw away high/low frequency terms when deriving $v_{out}$. Voltage estimates:
+
+    \begin{center}
+    \begin{tabular}{| l | l |} \hline
+        Freq & Voltage \\ \hline
+        0.05 & 0 \\ \hline
+        0.95 & 0 \\ \hline
+        1 & 47.628 \\ \hline
+        1.05 & 47.628 \\ \hline
+        1.10 & 0 \\ \hline
+        2.0 & 0 \\ \hline
+        3.0 & 0 \\ \hline
+    \end{tabular}
+    \end{center}
+
+    \item {\color{blue} Redo part (a) with $vs_{1.0GHz}$ reduced from 1 mV to 0.1 mV.}
+    \begin{center}
+    \begin{tabular}{| l | l |} \hline
+        Freq & Voltage \\ \hline
+        0.05 & 0 \\ \hline
+        0.95 & 0 \\ \hline
+        1 & 4.7628 \\ \hline
+        1.05 & 47.628 \\ \hline
+        1.10 & 0 \\ \hline
+        2.0 & 0 \\ \hline
+        3.0 & 0 \\ \hline
+    \end{tabular}
+    \end{center}
+\end{enumerate}
 
 \end{document}
