@@ -69,6 +69,16 @@ The required signal to distortion ratio at the front-end output is 9dB.}
     \end{align*}
 
     \item {\color{blue}What is the required spec for the amplifier IIP2 if the signal power at the 900MHz channel can be as high as -30dBm?}
+
+    The second harmonic distortion from 900 Mhz into 1800 Mhz cannot inject more than -109dBm of distortion noise.
+    \begin{align*}
+        HD_2 &= \frac{1}{2} \frac{a_2}{a_1} S_i \leq \frac{-109 dBm}{-100 dBm} = -9 dBm \\
+        IIP2 &= \frac{a_1}{a_2} = \frac{2}{HD_2} \\
+        \frac{1}{IIP2} &\leq -9 dBm \\
+        \frac{1}{IIP2} &= \frac{1}{IIP2_A} + \frac{a_1}{IIP2_B}
+    \end{align*}
+
+    We find that an IIP2 of 50 dBm is needed from the amplifier to maintain this inequality.
 \end{enumerate}
 
 \section{Distortion Analysis}
@@ -183,6 +193,7 @@ Keep in mind that in the passband of the amplifier (resonance), the memoryless a
     \end{center}
 
     \item {\color{blue} Redo part (a) with $vs_{1.0GHz}$ reduced from 1 mV to 0.1 mV.}
+
     \begin{center}
     \begin{tabular}{| l | l |} \hline
         Freq & Voltage \\ \hline
@@ -195,6 +206,28 @@ Keep in mind that in the passband of the amplifier (resonance), the memoryless a
         3.0 & 0 \\ \hline
     \end{tabular}
     \end{center}
+
+    \item {\color{blue} What are the IIP3 and IIP2 of this two-stage amplifier (with 2 tone excitation)?
+        Notice that upper-band IIP3 and IIP2 are no longer the same as the lower-band IIP3 and IIP2.}
+
+    IIP3 is very high, and we can take it as going to $\infty$ as the sharpness of the $v_{mid}$ filter increases (Q of the inductor increases).
+        This is due to the attenuation of the 2nd harmonic in $v_{mid}$ which is required to produce the 3rd harmonic in $v_{out}$.
+
+    IIP2 is the amount of signal power (assuming both tones are equal in power) for the 2nd harmonic to be as strong as the fundamental:
+    \begin{align*}
+        \frac{A^2 b_2}{2} R^3 a_1^2 \cdot H(1Ghz) = A R^2 a_1 b_1 \\
+        H(1Ghz) \approx -6 dB = 0.5 \\
+        A = \frac{4 b_1}{R b_2 a_1} = 0.019 \rightarrow -24 dBm
+    \end{align*}
+
+    \item {\color{blue} Use ADS to check calculations.}
+
+    ADS reports an IIP3 of 99.5 dBm and shows this spectrum at $v_{out}$.
+    \begin{figure}[H]
+        \centering \includegraphics[width=\textwidth-4cm]{problem3_spectrum.pdf}
+    \end{figure}
+
+    Not sure how to find IIP2 explicitly.
 \end{enumerate}
 
 \end{document}
