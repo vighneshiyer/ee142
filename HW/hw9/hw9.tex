@@ -89,6 +89,27 @@ $I_{out} = a_0 + a_1 V_{in} + a_2 V_{in}^2 + a_3 V_{in}^3$ and the input DC bias
 
     I first thought of assigning $V_{be} = A \cdot \cos(2 \pi f t)$, and then finding the Fourier Series of $I_{out}$, but this turns out to be a non-elementary expression in terms of Bessel functions. I'm going to go with a numerical approach.
 
+    I use Python to sample a 100 MHz cosine with amplitude $A$ at a 1 GHz sample rate. This is done for different amplitudes, and the sampled cosine serves as the $V_{be}$. This value is plugged into the $I_{out}$ exponential, and the FFT is taken to observe the power of the third harmonic.
+
+    \begin{figure}[H]
+        \centering \includegraphics[width=\textwidth]{problem1e_spectrum.pdf}
+    \end{figure}
+
+    It is clear that as the input amplitude goes down, the amplitude of the third harmonic goes down faster than the fundamental.
+    Now, I sweep A and check $HD_3$:
+
+    \begin{figure}[H]
+        \centering \includegraphics[width=\textwidth]{problem1e_A_sweep.pdf}
+    \end{figure}
+
+    We know that with a power series expansion, $HD_3 = \frac{1}{4} \frac{a_3}{a_1} A^2$.
+    For a BJT, $a_1 = I_Q/V_T$ and $a_3 = \frac{1}{6} (1/V_T)^3 I_Q$.
+
+    \begin{figure}[H]
+        \centering \includegraphics[width=\textwidth]{problem1e_HD3.pdf}
+    \end{figure}
+
+    So it's clear that the $HD_3$ formula only applies to small input signal amplitudes and is clearly off when ratios above 1.0 are considered since that is physically impossible.
 
 \end{enumerate}
 
