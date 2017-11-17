@@ -41,9 +41,30 @@ $I_{out} = a_0 + a_1 V_{in} + a_2 V_{in}^2 + a_3 V_{in}^3$ and the input DC bias
         OIP3 &= IIP3 \cdot a_1
     \end{align*}
 
-    $IP_{1dB}$ is defined by using a single-tone input and checking at what input power level the circuit's apparent gain has dropped by 1dB 
+    $IP_{1dB}$ is defined by using a single-tone input and checking at what input power level the circuit's apparent gain has dropped by 1dB.
+
+    \begin{align*}
+        S_o = \frac{3 a_{3}}{4} A^{3} \cos{\left (\omega_1 t \right )} + \frac{A^{3} a_{3}}{4} \cos{\left (3 \omega_1 t \right )} &+ \frac{A^{2} a_{2}}{2} \cos{\left (2 \omega_1 t \right )} + \frac{A^{2} a_{2}}{2} + A a_{1} \cos{\left (\omega_1 t \right )} \\
+        \text{Apparent Gain} &= \frac{a_1 A + \frac{3}{4} a_3 A^3}{A} \\
+        &= a_1 (1 + \frac{3}{4} \frac{a_3}{a_1} A^2) \\
+        20 \log(1 + \frac{3}{4} \frac{a_3}{a_1} A^2) &= -1 dB \\
+        IP_{1dB} &= \sqrt{\frac{4}{3} |\frac{a_1}{a_3}|} \cdot \sqrt{0.11} \\
+        IP_{3dB} &= \sqrt{\frac{4}{3} |\frac{a_1}{a_3}|} \cdot \sqrt{0.085}
+    \end{align*}
 
     \item {\color{blue} If IIP3 is 10V, what is the input-blocker level that degrades the small-signal gain of the desired signal by 2dB?}
+
+    We model an input signal $S_i = A \cos{\left (\omega_1 t \right )} + B \cos{\left (\omega_2 t \right )}$, where $\omega_1$ is the blocker, $\omega_2$ is the desired tone, and $A$ and $B$ are their magnitudes with $A >> B$.
+
+    We want to look at the cubic terms in $S_o$, the output signal.
+    \begin{align*}
+        S_o \text{ contains }& \frac{3 a_{3}}{2} A^{2} B \cos{\left (\omega_2 t \right )} \\
+        \text{Apparent Gain} &= \frac{a_1 B + a_3 \frac{3}{2} A^2 B}{B} \\
+        &= a_1 (1 + \frac{3}{2} \frac{a_3}{a_1} A^2) \\
+        &= a_1 (1 + \frac{2}{IIP3^2} A^2) \\
+        20 \log(1 + \frac{2}{IIP3^2} A^2) &= -2 dB \\
+        A &= 2.188 \text{ V}
+    \end{align*}
 
     \item {\color{blue} Following part (b), what will be the tolerable blocker levels for a two-tone blocker?}
 
