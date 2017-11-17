@@ -19,6 +19,30 @@ $I_{out} = a_0 + a_1 V_{in} + a_2 V_{in}^2 + a_3 V_{in}^3$ and the input DC bias
 \begin{enumerate}[label=(\alph*)]
     \item {\color{blue} Derive IIP3, OIP3, $IP_{1dB}$, and $IP_{3dB}$}
 
+    We begin by driving the circuit with a two-tone input with equal amplitude $A$ and frequencies $\omega_1$ and $\omega_2$:
+    $$ S_i = A \cos{\left (\omega_1 t \right )} + A \cos{\left (\omega_2 t \right )} $$
+
+    Now the full expanded form of the output can be derived:
+    \begin{align*}
+    S_o = \frac{9 a_{3}}{4} A^{3} \cos{\left (\omega_1 t \right )} + \frac{A^{3} a_{3}}{4} \cos{\left (3 \omega_1 t \right )} + \frac{9 a_{3}}{4} A^{3} \cos{\left (\omega_2 t \right )} + \frac{A^{3} a_{3}}{4} \cos{\left (3 \omega_2 t \right )} \\
+        + \frac{3 a_{3}}{4} A^{3} \cos{\left (2 \omega_1 t + \omega_2 t \right )} + \frac{A^{2} a_{2}}{2} \cos{\left (2 \omega_1 t \right )} + \frac{A^{2} a_{2}}{2} \cos{\left (2 \omega_2 t \right )} + \\
+        A^{2} a_{2} \cos{\left (\omega_1 t - \omega_2 t \right )} + A^{2} a_{2} \cos{\left (\omega_1 t + \omega_2 t \right )} + A^{2} a_{2} + A a_{1} \cos{\left (\omega_1 t \right )} + A a_{1} \cos{\left (\omega_2 t \right )}
+    \end{align*}
+
+    We define $IM3$ as $\frac{\text{Amplitude of one 3rd order IM product}}{\text{Amplitude of Fundamental}}$
+    \begin{align*}
+        IM3 &= \frac{3 a_3 / 4 \cdot A^3}{A a_1} \\
+        &= \frac{3}{4} \frac{a_3}{a_1} A^2 \\
+    \end{align*}
+
+    To find IIP3, set $|IM3| = 1$ and solve for $A$. OIP3 is just the IIP3 power referenced to the output.
+    \begin{align*}
+        IIP3 &= \sqrt{\frac{4}{3} |\frac{a_1}{a_3}|} \\
+        OIP3 &= IIP3 \cdot a_1
+    \end{align*}
+
+    $IP_{1dB}$ is defined by using a single-tone input and checking at what input power level the circuit's apparent gain has dropped by 1dB 
+
     \item {\color{blue} If IIP3 is 10V, what is the input-blocker level that degrades the small-signal gain of the desired signal by 2dB?}
 
     \item {\color{blue} Following part (b), what will be the tolerable blocker levels for a two-tone blocker?}
