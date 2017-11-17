@@ -63,14 +63,33 @@ $I_{out} = a_0 + a_1 V_{in} + a_2 V_{in}^2 + a_3 V_{in}^3$ and the input DC bias
         &= a_1 (1 + \frac{3}{2} \frac{a_3}{a_1} A^2) \\
         &= a_1 (1 + \frac{2}{IIP3^2} A^2) \\
         20 \log(1 + \frac{2}{IIP3^2} A^2) &= -2 dB \\
-        A &= 2.188 \text{ V}
+        V_{blocker,max} &= 2.188 \text{ V}
     \end{align*}
 
     \item {\color{blue} Following part (b), what will be the tolerable blocker levels for a two-tone blocker?}
 
-    \item {\color{blue} If IIP3 is 10V, what are the $IP_{1dB}$ for two-tone and three-tone inpnut signals?}
+    We consider the following input signal: $ A \cos{\left (\omega_{d} t \right )} + B \cos{\left (\omega_{b1} t \right )} + B \cos{\left (\omega_{b2} t \right )} $
+
+    Looking at the terms that contribute to $\omega_d$, we find the blocker term:
+    \begin{align*}
+        S_o \text{ contains } &= 3 A B^2 a_3
+    \end{align*}
+    this is just as expected since with two blocker tones, they will each contribute a blocking term to the desired signal.
+    So, $V_{blocker,max} = 1.094 \text{ V}$
+
+    \item {\color{blue} If IIP3 is 10V, what are the $IP_{1dB}$ for two-tone and three-tone input signals?}
+
+    \begin{align*}
+        IP_{1dB,one-tone} &= \sqrt{\frac{4}{3} |\frac{a_1}{a_3}|} \cdot \sqrt{0.11} = 3.32 \text{ V} \\
+        IP_{1dB,two-tone} &= \sqrt{\frac{4}{9} |\frac{a_1}{a_3}|} \cdot \sqrt{0.11} = 1.9 \text{ V}\\
+        IP_{1dB,three-tone} &= \sqrt{\frac{4}{15} |\frac{a_1}{a_3}|} \cdot \sqrt{0.11} = 1.48 \text{ V} \\
+    \end{align*}
 
     \item {\color{blue} If the modeled circuit is a BJT with $I_{out} = I_s \exp(V_{be}/V_{T})$, use a math tool to find the actual output third-harmonic current as a function of the input magnitude. Compare the actual values to the estimated values via the power series.}
+
+    I first thought of assigning $V_{be} = A \cdot \cos(2 \pi f t)$, and then finding the Fourier Series of $I_{out}$, but this turns out to be a non-elementary expression in terms of Bessel functions. I'm going to go with a numerical approach.
+
+
 \end{enumerate}
 
 \section{Distortion of a Source Follower}
