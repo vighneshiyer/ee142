@@ -122,6 +122,32 @@ $I_{out} = a_0 + a_1 V_{in} + a_2 V_{in}^2 + a_3 V_{in}^3$ and the input DC bias
     \centering \includegraphics[width=0.8\textwidth]{problem2_schematic.jpg}
 \end{figure}
 
+Notice that this is a source follower, or it can be represented as an amplifier with source degeneration in the AC path.
+We use the feedback equations for the power series coefficients noting that the feedback factor $f$ is $R_L = 50 \Omega$ by the same reasoning used in the lecture slides for a BJT with emitter degeneration.
+We assume the input magnitude is 120 mV arbitrarily.
+
+\begin{align*}
+    a_1 &= g_m \\
+    a_2 &= \frac{1}{2} \mu C_{ox} \frac{W}{L} \\
+    a_3 &= 0 \\
+    b_1 = \frac{a_1}{1 + a_1 f} &= \frac{g_{m}}{R_{L} g_{m} + 1} \\
+    b_2 = \frac{a_2}{(1 + a_1 f)^3} &= \frac{0.5 (W/L) \mu C_{ox}}{\left(R_{L} g_{m} + 1\right)^{3}} \\
+    b_3 = \frac{a_3 (1 + a_1 f) - 2 a_2^2 f}{(1 + a_1 f)^5} &= - \frac{0.5 (W/L)^{2} R_{L} \mu C_{ox}^{2}}{\left(R_{L} g_{m} + 1\right)^{5}} \\
+    IM3 = \frac{3}{4} \frac{b_3}{b_1} A^2 &= - \frac{0.375 (W/L)^{2} A^{2} R_{L} \mu C_{ox}^{2}}{g_{m} \left(R_{L} g_{m} + 1\right)^{4}}
+\end{align*}
+
+We have $IM3$ in terms of $\frac{W}{L}$ and $g_m$ (which is a function of $I_{bias}$). This is one equation.
+The other equation concerns the swing of 100 mV required across $R_L$. The 3rd order intermod will cause gain compression.
+
+\begin{align*}
+    A_v &= \text{Apparent Current Gain} \cdot (\frac{1}{g_m} || r_o || R_L) = b_1(1 + \frac{9}{4} \frac{b_3}{b_1} A^2) \cdot (\frac{1}{g_m} || R_L) \\
+    A_v &\geq \frac{100}{120}
+\end{align*}
+
+I tried this and I couldn't find a consistent set of equations. I found $g_m$ based on the usual source follower $A_V$ expression and substituted to find $W/L$.
+
+The results seem wrong $g_m = 0.1$ and $W/L = 6000$. This would imply an $I_{bias} = 10$ mA for $V_{ov} = 0.2$.
+
 \section{Pre-distortion and Source-degeneration Linearizer}
 \begin{figure}[H]
     \centering \includegraphics[width=\textwidth]{problem3_schematic.jpg}
@@ -130,7 +156,23 @@ $I_{out} = a_0 + a_1 V_{in} + a_2 V_{in}^2 + a_3 V_{in}^3$ and the input DC bias
 \begin{enumerate}[label=(\alph*)]
     \item {\color{blue} For the above schematic, what are the OIP3 of the BJT stage for $R_e = 0 \Omega$ and $R_e = 0.02 \Omega$?}
 
+    In general OIP3 [in dB] = IIP3 [in dB] + SS-gain [in dB].
+    \begin{align*}
+        IIP3 &= \sqrt{\frac{4}{3} |\frac{a_1}{a_3}|}
+    \end{align*}
+
+    For emitter degeneration, the equations were derived in class for the new BJT distortion coefficients.
+    \begin{align*}
+        IIP3_{no,degen} &= 0.147 \text{ A} \\
+        IIP3_{0.02,degen} &= 0.627 \text{ A} \\
+        OIP3_{no,degen} &= IIP3_{no,degen} \cdot g_m = 5.66 \\
+        OIP3_{0.02,degen} &= IIP3_{0.02,degen} \cdot \frac{g_m}{1 + g_m R_E} = 13.64
+    \end{align*}
+
     \item {\color{blue} What are the two possible $R_e$ for the BJT stage to have an OIP3 of 10A?}
+
+    We set the equation for OIP3 to equal 10 and solve for $R_e = 0.0065 \Omega$.
+    I'm unsure where the second solution for $R_e$ comes from.
 \end{enumerate}
 
 \end{document}
