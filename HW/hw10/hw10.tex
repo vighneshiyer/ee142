@@ -1,0 +1,85 @@
+\input{../common.tex}
+
+\newcommand{\headertext}{EE142 Problem Set 10}
+\renewcommand{\thesubsection}{\thesection.\alph{subsection}}
+
+\title{\vspace{-0.4in}\Large \bf \headertext \vspace{-0.1in}}
+\author{Vighnesh Iyer}
+
+\date{\today}
+\maketitle
+
+\markboth{\headertext}{\headertext}
+\thispagestyle{empty}
+
+\section{Mixer Analysis}
+\begin{figure}[H]
+    \centering \includegraphics[width=1.0\textwidth]{problem1_schematic.jpg}
+\end{figure}
+
+\begin{enumerate}[label=(\alph*)]
+    \item {\color{blue} For the FET mixer shown above with the FET parameters annotated, estimate (calculate) the mixer down-conversion power gain for an input RF signal at 2.1 GHz and LO at 2 GHz. Verify your estimation by ADS simulation.}
+
+    We do the hand-calculations assuming a long-channel device.
+
+    \begin{align*}
+        I_d &= \frac{1}{2} K_p \frac{W}{L} (V_{gs} - V_{th})^2 \\
+        &= 5 \text{ mA} \\
+        g_m &= \frac{2 I_d}{V_{ov}} = 0.036 \\
+        G_m &= Q \cdot g_m = 2.002 \cdot g_m = 0.072 \\
+        I_{tail} &= I_d + v_s \cos(\omega_{RF} t) \cdot G_m \\
+        &= 5 \text{ mA} + v_s \cos(\omega_{RF} t) \cdot 0.076 \\
+        K &= \frac{1}{2} K_p \frac{W}{L} \\
+        i_{d,1,2,diffpair} &\approx \frac{I_{tail}}{2} \pm \sqrt{2 K I_{tail}} \frac{v_{id}}{2} \text{ from disc slides} \\
+        &= \frac{I_{tail}}{2} + \sqrt{2 K I_{dc}} (1 + \frac{I_{ac}}{2 I_{dc}}) \frac{v_{id}}{2} \\
+        i_{IF} &= \sqrt{2 K I_{dc}} v_s \frac{G_m}{2 I_{dc}} \frac{0.2}{4} = 0.007 v_s \\
+        v_{IF} &= 200 \cdot i_{IF} = 1.414 v_s
+    \end{align*}
+
+    The voltage conversion gain is 1.414.
+
+    \item {\color{blue} Calculate the LO and RF leakages at the IF port. Verify your results by ADS simulation.}
+
+    The RF-to-IF leakage is caused by the Q-boosted transconductance of the tail FET which flows through the IF FET.
+    \begin{align*}
+        v_{out,RF} = v_s G_m \frac{1}{2} \cdot 200 = 7.17 v_s
+    \end{align*}
+
+    The LO-to-IF leakage is caused by the differential swing on the IF FET.
+    \begin{align*}
+        v_{out,LO} = \sqrt{2 K I_{dc}} \frac{v_{id}}{2} \cdot R_L = 0.3955 \text{ V}
+    \end{align*}
+
+    \item {\color{blue} Simulate the mixer IIP3.}
+
+    \item {\color{blue} Estimate the mixer IIP3 by hand calculation.}
+    Unfortunately, I don't have time to look into this part.
+
+    \item {\color{blue} Repeat part (a) to part (c) with the LO drive enhanced to 0.8$V_{pp}$.}
+
+    \item {\color{blue} Roughly estimate the mixer SSB NF. The noise of the FETs and the noise of the load resistance can be excluded. Use an LO drive of 0.4$V_{pp}$.}
+\end{enumerate}
+
+\section{Power Amplifier (PA) Output Waveform and Efficiency}
+{\color{blue} Assume your FET transistor device has the following properties:
+\begin{itemize}
+    \item Maximum drain current of $I_{d,max}$
+    \item Maximum drain voltage of $V_{d,max}$
+    \item Minimum drain voltage of $V_{d,min}$
+    \item If $V_g > 0.5$ then $I_d = (V_g - 0.5)$ else $I_d = 0$
+    \item Input impedance of $50 \Omega$
+\end{itemize}}
+
+\begin{enumerate}[label=(\alph*)]
+    \item {\color{blue} Design the transistor drain bias voltage, gate bias voltage, drain bias current, and load impedance (including the load impedance at harmonics of the operation frequency) for Class-A and Class-B power amplifier operations.}
+
+    \item {\color{blue} What are the power gains of the two designs?}
+
+    \item {\color{blue} Following part(a), draw the time-domain transistor voltage and current waveforms at the peak output for the two designs.}
+
+    \item {\color{blue} Following part(a), draw the power delivered to the load, dc power consumption, and the drain efficiency for your Class-A and Class-B designs. The x-axis in your plots should be the input power back-off from the input level corresponding to the maximum output power.}
+
+    \item {\color{blue} Following part(a), what are the peak power-added efficiencies (PAE) of your Class-A and Class-B PA designs?}
+\end{enumerate}
+
+\end{document}
