@@ -111,17 +111,45 @@
     \item If $V_g > 0.5$ then $I_d = (V_g - 0.5)$ else $I_d = 0$
     \item Input impedance of $50 \Omega$
 \end{itemize}}
-
 \begin{enumerate}[label=(\alph*)]
     \item {\color{blue} Design the transistor drain bias voltage, gate bias voltage, drain bias current, and load impedance (including the load impedance at harmonics of the operation frequency) for Class-A and Class-B power amplifier operations.}
 
+    Assume we are driving a load impedance of $1 \Omega$.
+
+    For the Class A amplifier, set the drain bias voltage to $V_{d,max} / 2$ via an RF choke. Set the gate bias voltage to $0.5 + v_{in,pk-pk}/2$, set the load impedance to just the real load of $1 \Omega$, and let the drain bias current fall-out of the gate bias voltage.
+
+    For the Class B amplifier, set the drain bias voltage to $V_{d,max} / 2$, gate bias voltage to $0.5 V$ with AC coupled input, and the load impedance to $1 \Omega$ || an LC tank that resonates at the operation frequency. The drain bias current is zero.
+
     \item {\color{blue} What are the power gains of the two designs?}
+
+    For Class A, the peak output power is $(V_{d,max} - V_{d,min}) \cdot I_{d,max} / 8$. The input power is $P_{in} = \frac{v_{in}^2}{100 \cdot \sqrt{2}}$. The power gain is output power over input power and depends on the input signal amplitude.
+    The power gain of the Class B amplifier is the same.
 
     \item {\color{blue} Following part(a), draw the time-domain transistor voltage and current waveforms at the peak output for the two designs.}
 
+    I recreated a schematic for each amplifier based on the discussion slides, but wasn't able to produce a reasonable time-domain waveform for the Class B amplifier.
+    Here are the class A and B current and voltage waveforms.
+
+    \begin{figure}[H]
+        \centering \includegraphics[width=0.6\textwidth]{problem2c.pdf}
+    \end{figure}
+
     \item {\color{blue} Following part(a), draw the power delivered to the load, dc power consumption, and the drain efficiency for your Class-A and Class-B designs. The x-axis in your plots should be the input power back-off from the input level corresponding to the maximum output power.}
 
+    \begin{figure}[H]
+        \centering \includegraphics[width=0.6\textwidth]{problem2d.pdf}
+    \end{figure}
+
+    These waveforms look generally correct and they were derived by sweeping $f$ where the input voltage amplitude was $0.5 / f$.
+
     \item {\color{blue} Following part(a), what are the peak power-added efficiencies (PAE) of your Class-A and Class-B PA designs?}
+
+    For a Class A:
+    \begin{align*}
+        PAE = \frac{P_L - P_{in}}{P_{dc}} = \frac{V_{d,max} - V_{d,min} \cdot I_{d,max}/8 - v_{in}^2 / (100 \cdot \sqrt{2})}{v_{in}/2}
+    \end{align*}
+
+    For an ideal Class B, since the DC power is 0, the PAE would appear to be infinite.
 \end{enumerate}
 
 \end{document}
