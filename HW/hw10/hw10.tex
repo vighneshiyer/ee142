@@ -80,7 +80,26 @@
 
     \item {\color{blue} Repeat part (a) to part (c) with the LO drive enhanced to 0.8$V_{pp}$.}
 
+    Going through the same calculations, the voltage conversion gain would be 2.83, the RF leakage would be identical at 7.17 $v_s$ and the LO leakage would be 0.79 V (doubled from part b).
+    \begin{figure}[H]
+        \centering \includegraphics[width=0.6\textwidth]{problem1e_gains.pdf}
+    \end{figure}
+
+    The simulation results match the calculations. The mixer IIP3 simulation results:
+    \begin{figure}[H]
+        \centering \includegraphics[width=0.6\textwidth]{problem1e_iip3.pdf}
+    \end{figure}
+
+    The extrapolated IIP3 is 11.63 dBV. This seems off though, since I would expect the new IIP3 to be lower with higher LO drive.
+
     \item {\color{blue} Roughly estimate the mixer SSB NF. The noise of the FETs and the noise of the load resistance can be excluded. Use an LO drive of 0.4$V_{pp}$.}
+
+    The noise would only be caused by the source resistance.
+    \begin{align*}
+        v_{noise,o} = \sqrt{4 K T \cdot 50} \cdot 1.414 = 1.28 \text{ nV}
+    \end{align*}
+
+    I got 2.086 nV of noise at 100 Mhz from the harmonic balance noise simulation. This is higher than expected due to the additional noise mixed down by the LO, in addition to the voltage conversion gain at RF-LO.
 \end{enumerate}
 
 \section{Power Amplifier (PA) Output Waveform and Efficiency}
