@@ -38,6 +38,16 @@
 
     The voltage conversion gain is 1.414.
 
+    The ADS schematic:
+    \begin{figure}[H]
+        \centering \includegraphics[width=0.8\textwidth]{problem1ab_schematic.pdf}
+    \end{figure}
+
+    Simulation results:
+    \begin{figure}[H]
+        \centering \includegraphics[width=0.5\textwidth]{problem1ab_sim_results.pdf}
+    \end{figure}
+
     \item {\color{blue} Calculate the LO and RF leakages at the IF port. Verify your results by ADS simulation.}
 
     The RF-to-IF leakage is caused by the Q-boosted transconductance of the tail FET which flows through the IF FET.
@@ -47,10 +57,23 @@
 
     The LO-to-IF leakage is caused by the differential swing on the IF FET.
     \begin{align*}
-        v_{out,LO} = \sqrt{2 K I_{dc}} \frac{v_{id}}{2} \cdot R_L = 0.3955 \text{ V}
+        v_{out,LO} = \sqrt{2 K I_{dc}} \frac{v_{id}}{2} \cdot R_L = 0.395 \text{ V}
     \end{align*}
 
+    The simulation results closely match the hand calculation.
+
     \item {\color{blue} Simulate the mixer IIP3.}
+    The ADS schematic:
+    \begin{figure}[H]
+        \centering \includegraphics[width=0.8\textwidth]{problem1c_schematic.pdf}
+    \end{figure}
+
+    Simulation results:
+    \begin{figure}[H]
+        \centering \includegraphics[width=0.6\textwidth]{problem1c_sim_results.pdf}
+    \end{figure}
+
+    We find that the extrapolated lines intersect at -4.69 dBV.
 
     \item {\color{blue} Estimate the mixer IIP3 by hand calculation.}
     Unfortunately, I don't have time to look into this part.
